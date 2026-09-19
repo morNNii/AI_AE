@@ -1,0 +1,12 @@
+# Camera status 範例（示意值，不代表這三張 PGM 的真實拍攝參數）
+# 一行對應一張 frame；空白行與 # 開頭的行會被忽略。
+# filename scene_id frame_index exposure_time_us sensor_gain_code isp_gain_code hdr_mode
+00000000_bayer.pgm pattern_1 0 100 32 1024 SDR
+00000020_bayer.pgm pattern_1 20 3300 64 1024 SDR
+00000034_bayer.pgm pattern_1 34 33000 512 1024 SDR
+
+# 正式資料注意事項：
+# 1. 所有欄位必須代表該張影像「實際已生效」的狀態，不是同 frame 才送出的命令。
+# 2. sensor gain code 的 32 代表 1×；ISP gain code 的 1024 代表 1×。
+# 3. 程式會由 exposure time 與兩種 gain code 計算 calibrated exposure product 和 log exposure。
+# 4. HDR 時應增加 long/short exposure、各路 gain、ratio 與 applied HDR mode 等欄位。

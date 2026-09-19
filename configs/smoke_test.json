@@ -1,0 +1,18 @@
+{
+  "seed": 42,
+  "reference_exposure_time_us": 100,
+  "sensor_gain_unity_code": 32,
+  "isp_gain_unity_code": 1024,
+  "histogram_bins": 32,
+  "grid_rows": 8,
+  "grid_cols": 8,
+  "hidden_dim": 32,
+  "epochs": 500,
+  "learning_rate": 0.01,
+  "exposure_delay_frames": 3,
+  "max_step_ev": 1.0,
+  "rollout_frames": 12,
+  "hdr_on_threshold": 0.65,
+  "hdr_off_threshold": 0.35,
+  "ratio_classes": [2, 4, 8]
+}

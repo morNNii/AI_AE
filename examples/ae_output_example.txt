@@ -1,0 +1,14 @@
+# AE oracle/output 範例（示意 label，不代表人工確認的曝光品質）
+# 同一靜態 scene 的 exposure sweep 可共用 scene-level target。
+# scene_id sdr_target_log_exposure_ev acceptable_min_ev acceptable_max_ev hdr_benefit_if_static hdr_enable_if_static hdr_ratio_class hdr_anchor_log_exposure_ev label_confidence label_source
+pattern_1 6.044394 5.5 6.5 0.80 1 4 6.044394 0.20 placeholder_smoke_test
+
+# 欄位說明：
+# sdr_target_log_exposure_ev：AI 要學習的絕對曝光目標。
+# acceptable_min/max_ev：可接受區間；正式標註時比單一 target 更能容納主觀差異。
+# hdr_benefit_if_static：0~1，僅表示靜態場景採用 HDR 的收益。
+# hdr_enable_if_static：由標註或規則得到的靜態 HDR 開關。
+# hdr_ratio_class：sensor 支援的 HDR ratio 類別，例如 2/4/8。
+# hdr_anchor_log_exposure_ev：HDR anchor 的絕對曝光。
+# label_confidence：標註可信度；目前 placeholder 只給 0.20。
+# label_source：必須標明人工、規則、影像品質最佳化或 placeholder。

@@ -1,0 +1,225 @@
+{
+  "status": "PASS",
+  "purpose": "僅驗證架構與 flow；不代表 AE/HDR 品質",
+  "input_count": 3,
+  "feature_dim": 101,
+  "initial_loss": 36.86606979370117,
+  "final_loss": 0.08385806530714035,
+  "inference": [
+    {
+      "filename": "00000000_bayer.pgm",
+      "target_ev": 6.045684814453125,
+      "hdr_benefit": 0.8443195223808289,
+      "hdr_ratio": 4,
+      "confidence": 0.29094064235687256
+    },
+    {
+      "filename": "00000020_bayer.pgm",
+      "target_ev": 6.047783851623535,
+      "hdr_benefit": 0.9211509227752686,
+      "hdr_ratio": 4,
+      "confidence": 0.2497841864824295
+    },
+    {
+      "filename": "00000034_bayer.pgm",
+      "target_ev": 6.047130584716797,
+      "hdr_benefit": 0.9680603742599487,
+      "hdr_ratio": 4,
+      "confidence": 0.19093739986419678
+    }
+  ],
+  "rollout": [
+    {
+      "frame": 0,
+      "applied_ev": 0.0,
+      "lookup_frame": "00000000_bayer.pgm",
+      "lookup_error_ev": 0.0,
+      "predicted_target_ev": 6.045684814453125,
+      "issued_command_ev": 1.0,
+      "command_effective_frame": 3,
+      "hdr_enabled": true,
+      "hdr_ratio": 4,
+      "pending_queue_after_issue": [
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "frame": 1,
+      "applied_ev": 0.0,
+      "lookup_frame": "00000000_bayer.pgm",
+      "lookup_error_ev": 0.0,
+      "predicted_target_ev": 6.072020530700684,
+      "issued_command_ev": 2.0,
+      "command_effective_frame": 4,
+      "hdr_enabled": true,
+      "hdr_ratio": 4,
+      "pending_queue_after_issue": [
+        0.0,
+        1.0,
+        2.0
+      ]
+    },
+    {
+      "frame": 2,
+      "applied_ev": 0.0,
+      "lookup_frame": "00000000_bayer.pgm",
+      "lookup_error_ev": 0.0,
+      "predicted_target_ev": 6.089067459106445,
+      "issued_command_ev": 3.0,
+      "command_effective_frame": 5,
+      "hdr_enabled": true,
+      "hdr_ratio": 4,
+      "pending_queue_after_issue": [
+        1.0,
+        2.0,
+        3.0
+      ]
+    },
+    {
+      "frame": 3,
+      "applied_ev": 1.0,
+      "lookup_frame": "00000000_bayer.pgm",
+      "lookup_error_ev": 1.0,
+      "predicted_target_ev": 6.125458717346191,
+      "issued_command_ev": 4.0,
+      "command_effective_frame": 6,
+      "hdr_enabled": true,
+      "hdr_ratio": 4,
+      "pending_queue_after_issue": [
+        2.0,
+        3.0,
+        4.0
+      ]
+    },
+    {
+      "frame": 4,
+      "applied_ev": 2.0,
+      "lookup_frame": "00000000_bayer.pgm",
+      "lookup_error_ev": 2.0,
+      "predicted_target_ev": 6.161176681518555,
+      "issued_command_ev": 5.0,
+      "command_effective_frame": 7,
+      "hdr_enabled": true,
+      "hdr_ratio": 4,
+      "pending_queue_after_issue": [
+        3.0,
+        4.0,
+        5.0
+      ]
+    },
+    {
+      "frame": 5,
+      "applied_ev": 3.0,
+      "lookup_frame": "00000000_bayer.pgm",
+      "lookup_error_ev": 3.0,
+      "predicted_target_ev": 6.195554733276367,
+      "issued_command_ev": 6.0,
+      "command_effective_frame": 8,
+      "hdr_enabled": true,
+      "hdr_ratio": 4,
+      "pending_queue_after_issue": [
+        4.0,
+        5.0,
+        6.0
+      ]
+    },
+    {
+      "frame": 6,
+      "applied_ev": 4.0,
+      "lookup_frame": "00000020_bayer.pgm",
+      "lookup_error_ev": 2.0443941193584534,
+      "predicted_target_ev": 6.036590576171875,
+      "issued_command_ev": 6.036590576171875,
+      "command_effective_frame": 9,
+      "hdr_enabled": true,
+      "hdr_ratio": 4,
+      "pending_queue_after_issue": [
+        5.0,
+        6.0,
+        6.036590576171875
+      ]
+    },
+    {
+      "frame": 7,
+      "applied_ev": 5.0,
+      "lookup_frame": "00000020_bayer.pgm",
+      "lookup_error_ev": 1.0443941193584534,
+      "predicted_target_ev": 6.037701606750488,
+      "issued_command_ev": 6.037701606750488,
+      "command_effective_frame": 10,
+      "hdr_enabled": true,
+      "hdr_ratio": 4,
+      "pending_queue_after_issue": [
+        6.0,
+        6.036590576171875,
+        6.037701606750488
+      ]
+    },
+    {
+      "frame": 8,
+      "applied_ev": 6.0,
+      "lookup_frame": "00000020_bayer.pgm",
+      "lookup_error_ev": 0.04439411935845339,
+      "predicted_target_ev": 6.047257423400879,
+      "issued_command_ev": 6.047257423400879,
+      "command_effective_frame": 11,
+      "hdr_enabled": true,
+      "hdr_ratio": 4,
+      "pending_queue_after_issue": [
+        6.036590576171875,
+        6.037701606750488,
+        6.047257423400879
+      ]
+    },
+    {
+      "frame": 9,
+      "applied_ev": 6.036590576171875,
+      "lookup_frame": "00000020_bayer.pgm",
+      "lookup_error_ev": 0.007803543186578388,
+      "predicted_target_ev": 6.047832489013672,
+      "issued_command_ev": 6.047832489013672,
+      "command_effective_frame": 12,
+      "hdr_enabled": true,
+      "hdr_ratio": 4,
+      "pending_queue_after_issue": [
+        6.037701606750488,
+        6.047257423400879,
+        6.047832489013672
+      ]
+    },
+    {
+      "frame": 10,
+      "applied_ev": 6.037701606750488,
+      "lookup_frame": "00000020_bayer.pgm",
+      "lookup_error_ev": 0.0066925126079651065,
+      "predicted_target_ev": 6.047769546508789,
+      "issued_command_ev": 6.047769546508789,
+      "command_effective_frame": 13,
+      "hdr_enabled": true,
+      "hdr_ratio": 4,
+      "pending_queue_after_issue": [
+        6.047257423400879,
+        6.047832489013672,
+        6.047769546508789
+      ]
+    },
+    {
+      "frame": 11,
+      "applied_ev": 6.047257423400879,
+      "lookup_frame": "00000020_bayer.pgm",
+      "lookup_error_ev": 0.0028633040424255185,
+      "predicted_target_ev": 6.047885894775391,
+      "issued_command_ev": 6.047885894775391,
+      "command_effective_frame": 14,
+      "hdr_enabled": true,
+      "hdr_ratio": 4,
+      "pending_queue_after_issue": [
+        6.047832489013672,
+        6.047769546508789,
+        6.047885894775391
+      ]
+    }
+  ]
+}
