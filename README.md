@@ -453,3 +453,11 @@ python3 scripts/run_smoke_test.py
 - 修改 camera status 範例、reader、feature extractor、pipeline 與測試；若 ISP gain 固定，仍在 metadata 中顯式記為 1024。
 - 重新執行結果：3/3 測試通過，loss 由 36.86607 降至 0.08386；3-frame rollout 由 0 stop 收斂至約 6.048 stops。
 - 結論：模型與 controller 的分層架構不需改變，只需修正 input metadata、gain calibration 與 target 座標。
+
+### 2026-09-19｜GitHub repository 初始化
+
+- 已將 `AI_AE` 初始化為獨立 Git repository，避免誤用家目錄中其他專案的 remote。
+- Remote 設為 `https://github.com/morNNii/AI_AE.git`，本機初始 commit 為 `c1b118c`。
+- 已加入 `.gitignore`，排除 `.DS_Store`、Python cache、虛擬環境與 log。
+- GitHub HTTPS push 因本機沒有有效 token 而失敗；現有 SSH key 也尚未取得 GitHub 授權，因此目前內容尚未成功上傳。
+- 使用者的全域 Git ignore 另有 `input/` 規則，因此三張 pattern PGM 尚未進入 commit；完成 GitHub 驗證後需確認是否要將範例影像強制加入。
