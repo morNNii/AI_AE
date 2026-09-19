@@ -459,5 +459,5 @@ python3 scripts/run_smoke_test.py
 - 已將 `AI_AE` 初始化為獨立 Git repository，避免誤用家目錄中其他專案的 remote。
 - Remote 設為 `https://github.com/morNNii/AI_AE.git`，本機初始 commit 為 `c1b118c`。
 - 已加入 `.gitignore`，排除 `.DS_Store`、Python cache、虛擬環境與 log。
-- GitHub HTTPS push 因本機沒有有效 token 而失敗；現有 SSH key 也尚未取得 GitHub 授權，因此目前內容尚未成功上傳。
-- 使用者的全域 Git ignore 另有 `input/` 規則，因此三張 pattern PGM 尚未進入 commit；完成 GitHub 驗證後需確認是否要將範例影像強制加入。
+- GitHub HTTPS 驗證原先失敗，後續已完成 SSH 設定，並成功將 `main` 推送至 `github.com:morNNii/AI_AE.git`。
+- 使用者的全域 Git ignore 另有 `input/` 規則；加入三張 pattern PGM 的權限操作未獲允許，因此目前 GitHub repository 尚不包含範例影像，其餘程式、設定、測試、輸出與文件均已上傳。
