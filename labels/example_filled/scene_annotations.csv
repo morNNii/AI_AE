@@ -1,0 +1,2 @@
+scene_id,preferred_filename,acceptable_min_filename,acceptable_max_filename,hdr_benefit_if_static,hdr_enable_if_static,hdr_ratio_class,hdr_anchor_filename,label_confidence,label_source
+pattern_1,00000020_bayer.pgm,00000020_bayer.pgm,00000020_bayer.pgm,0.8,1,4,00000020_bayer.pgm,0.2,placeholder_smoke_test

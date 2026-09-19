@@ -130,6 +130,8 @@ effective_frame: int
 
 ## Pattern 資料如何標註與展開成訓練資料
 
+已確認目前 `input/` 中的 pattern 影像已經過校正處理。這能減少不同 frame 的 pixel-domain 偏差，但不取代逐 frame 的 exposure time、sensor gain 與 ISP gain metadata；模型仍需要這些資料，才能從影像亮度反推場景的曝光需求。
+
 ### 建議資料結構
 
 每個 `pattern_xxx` 代表一個不變的靜態場景，資料夾內是不同 exposure time/gain 組合：
@@ -225,6 +227,132 @@ prediction > max：loss = distance(prediction, max)
 - 明確且經驗證的 dynamic-range 規則。
 
 沒有上述資料時，建議第一階段只訓練 SDR target，把 HDR label 設為 missing 並 mask HDR loss；不要把未知值標成 HDR off 或 ratio 2。
+
+## 訓練前需要提供的資訊
+
+### A. 一次性硬體／資料集定義
+
+```text
+sensor gain unity code（目前為 32）
+ISP gain unity code（目前為 1024）
+reference exposure time（目前 smoke test 為 100 us）
+sensor gain code 是否與真實倍率線性；若否，需要 calibration table
+exposure time、gain 的合法範圍與量化 step
+ISP gain 是否永遠固定為 1024
+HDR 支援的 ratio classes
+曝光、HDR mode、ratio 各自的生效延遲
+校正處理的內容、版本與所有 pattern 是否一致
+```
+
+### B. 每張 frame 的客觀 metadata
+
+```text
+scene_id / pattern 名稱
+filename
+frame_index
+實際生效的 exposure_time_us
+實際生效的 sensor_gain_code
+實際生效的 isp_gain_code（若固定仍建議明記 1024）
+applied HDR mode
+```
+
+這些欄位不能由影像可靠推測，必須由拍攝系統、log 或資料建立流程提供。
+
+### C. 每個 scene 的人工／規則 annotation
+
+SDR 第一版必要欄位：
+
+```text
+preferred_filename
+acceptable_min_filename
+acceptable_max_filename
+label_confidence
+label_source
+```
+
+HDR 欄位可以先留白：
+
+```text
+hdr_benefit_if_static
+hdr_enable_if_static
+hdr_ratio_class
+hdr_anchor_filename
+```
+
+留白代表 unknown，生成器會輸出 mask；不要用 0 代表未知。
+
+## 目前 smoke-test 模型實際吃哪些 label？
+
+目前 [model.py](src/ai_ae/model.py) 的訓練參數與 loss 如下：
+
+| Head | 程式目前使用的 label | Loss | 備註 |
+|---|---|---|---|
+| Target exposure | `target_log_exposure` | MSE | 已使用 |
+| HDR | `hdr_enable_if_static` | Binary cross entropy | 已使用；目前沒有 mask |
+| HDR ratio | `hdr_ratio_class` | Cross entropy | 已使用；目前沒有 mask |
+| Confidence | `label_confidence` | Binary cross entropy | 已使用 |
+
+目前 label 檔中雖然另有下列欄位，但 smoke-test trainer 尚未把它們放進 loss：
+
+```text
+acceptable_min/max_log_exposure
+hdr_benefit_if_static
+hdr_anchor_log_exposure
+label_source
+hdr_label_mask / hdr_ratio_mask
+```
+
+因此目前程式只適合確認 flow。正式訓練前應將 exposure MSE 改成「interval loss + 低權重 preferred target loss」，並讓 HDR losses 套用 mask，避免把沒有 HDR label 的 scene 當成 HDR off。
+
+## Label 生成工具
+
+工具分兩階段，因為 exposure metadata 與人工品質選擇無法安全地只由影像自動猜測。
+
+### 1. 掃描所有 pattern 並建立待填模板
+
+```bash
+python3 scripts/generate_labels.py init \
+  --input input \
+  --draft labels/draft
+```
+
+會產生：
+
+```text
+labels/draft/frame_metadata.csv
+labels/draft/scene_annotations.csv
+```
+
+在 `frame_metadata.csv` 填入每張圖的 exposure time 與 gain code；在 `scene_annotations.csv` 選擇 preferred、acceptable min/max frame。HDR 不確定時留白。
+
+### 2. 驗證並生成訓練 labels
+
+```bash
+python3 scripts/generate_labels.py build \
+  --draft labels/draft \
+  --output labels/generated \
+  --config configs/smoke_test.json
+```
+
+工具會自動：
+
+- 將 gain code 換成倍率。
+- 計算 exposure product 與 applied log exposure。
+- 由選定的檔名取得 target 與 acceptable interval。
+- 檢查 preferred 是否位於 acceptable interval。
+- 檢查缺欄、重複 frame、非法 gain、HDR/confidence 範圍。
+- 將每個 scene label 展開到該 pattern 的所有 frame。
+- 為未知 HDR label 產生 mask。
+
+輸出：
+
+```text
+labels/generated/frames.csv           每張 frame 的狀態與 log exposure
+labels/generated/scenes.csv           每個 scene 的 oracle label
+labels/generated/training_samples.csv 已展開、可供 dataset loader 使用
+```
+
+`labels/example_filled/` 是 placeholder 填寫範例，`labels/example_generated/` 是對應輸出，不能當成真實曝光品質標註。
 
 ## Label 設計提案
 
@@ -461,3 +589,13 @@ python3 scripts/run_smoke_test.py
 - 已加入 `.gitignore`，排除 `.DS_Store`、Python cache、虛擬環境與 log。
 - GitHub HTTPS 驗證原先失敗，後續已完成 SSH 設定，並成功將 `main` 推送至 `github.com:morNNii/AI_AE.git`。
 - 使用者的全域 Git ignore 另有 `input/` 規則；加入三張 pattern PGM 的權限操作未獲允許，因此目前 GitHub repository 尚不包含範例影像，其餘程式、設定、測試、輸出與文件均已上傳。
+
+### 2026-09-19｜Label 生成流程
+
+- 確認 `input/` 內 pattern 影像已經過校正處理；仍要求保留每張 frame 的實際 exposure time 與 gain metadata。
+- 盤點 smoke-test trainer：目前實際使用 target log exposure、HDR enable、HDR ratio class、label confidence；acceptable interval、HDR benefit、HDR anchor 與 masks 尚未接入 loss。
+- 新增 `scripts/generate_labels.py`，提供 `init` 掃描模板及 `build` 驗證／生成兩階段流程。
+- 新增 `labels/draft/` 待填模板、`labels/example_filled/` placeholder 範例及 `labels/example_generated/` 對應輸出。
+- 生成器會換算 gain code、計算 log exposure、用人工選定的 frame 建立 scene oracle、展開 training samples，並為未知 HDR labels 產生 mask。
+- 新增 label generator 單元測試；目前全部 4/4 測試通過。
+- 下一步：取得真實 frame metadata 與人工 SDR 選圖後生成正式 labels；正式訓練前再將 interval loss 和 HDR mask 接入 trainer。

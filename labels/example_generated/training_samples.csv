@@ -1,0 +1,4 @@
+﻿scene_id,filename,frame_index,exposure_time_us,sensor_gain_code,isp_gain_code,hdr_mode,exposure_product,applied_log_exposure,target_log_exposure,acceptable_min_log_exposure,acceptable_max_log_exposure,hdr_benefit_if_static,hdr_enable_if_static,hdr_ratio_class,hdr_anchor_log_exposure,label_confidence,label_source,hdr_label_mask,hdr_ratio_mask
+pattern_1,00000000_bayer.pgm,0,100,32,1024,SDR,100.0,0.0,6.044394119358453,6.044394119358453,6.044394119358453,0.8,1,4,6.044394119358453,0.2,placeholder_smoke_test,1,1
+pattern_1,00000020_bayer.pgm,20,3300,64,1024,SDR,6600.0,6.044394119358453,6.044394119358453,6.044394119358453,6.044394119358453,0.8,1,4,6.044394119358453,0.2,placeholder_smoke_test,1,1
+pattern_1,00000034_bayer.pgm,34,33000,512,1024,SDR,528000.0,12.366322214245816,6.044394119358453,6.044394119358453,6.044394119358453,0.8,1,4,6.044394119358453,0.2,placeholder_smoke_test,1,1

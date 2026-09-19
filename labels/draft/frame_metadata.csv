@@ -1,0 +1,4 @@
+﻿scene_id,filename,frame_index,exposure_time_us,sensor_gain_code,isp_gain_code,hdr_mode
+pattern_1,00000000_bayer.pgm,0,,,1024,SDR
+pattern_1,00000020_bayer.pgm,20,,,1024,SDR
+pattern_1,00000034_bayer.pgm,34,,,1024,SDR

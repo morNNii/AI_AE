@@ -1,0 +1,2 @@
+﻿scene_id,target_log_exposure,acceptable_min_log_exposure,acceptable_max_log_exposure,hdr_benefit_if_static,hdr_enable_if_static,hdr_ratio_class,hdr_anchor_log_exposure,label_confidence,label_source,hdr_label_mask,hdr_ratio_mask
+pattern_1,6.044394119358453,6.044394119358453,6.044394119358453,0.8,1,4,6.044394119358453,0.2,placeholder_smoke_test,1,1
