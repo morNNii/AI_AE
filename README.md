@@ -6,12 +6,461 @@
 
 本專案所有實驗、程式、設定、產物與說明都應放在此 `AI_AE` 資料夾內。每次修改或實驗完成後，必須在本 README 的「更新紀錄」中以中文記錄結果，包括失敗實驗與尚未確認的假設。
 
-## 目前狀態（2026-09-19）
+試跑與驗證中間檔一律使用系統暫存目錄，流程結束時自動清除；`outputs/` 與 `labels/` 只保留可重現的正式 baseline、候選版本、人工 draft 與目前使用中的資料產物，不保留 `trial` 或已淘汰的中間副本。Git 會提交程式、設定、labels、權重、CSV／JSON／NPZ 與 HTML 報告；原始 `input/` 及 `outputs/` 下的 JPG／PNG 等圖檔不提交。HTML inference 報告雖含內嵌縮圖，仍作為單一可攜式報告提交。
+
+## 目前狀態（2026-09-28）
 
 - 已參考分享對話〈AI自動曝光預測架構〉。
 - 已讀取 `input/pattern_1` 的 3 張 1920×1080、10-bit、Bayer PGM。
-- 已完成不依賴 PyTorch/Pillow 的 NumPy smoke-test pipeline，涵蓋資料讀取、特徵、訓練、推論、controller 與 closed-loop simulator。
-- 目前 camera status 與 AE output 都是 placeholder 範例，只能證明資料流正確，不能作為曝光品質結論。
+- 已完成以 NumPy MLP 為核心的資料讀取、特徵、訓練、推論、controller 與 closed-loop simulator；DNG／RAW／EXR 準備及 HTML 圖片報告另使用 requirements 中的影像套件。
+- `examples/` 內的 camera status 與 AE output 仍是早期 smoke-test placeholder；正式結果應讀取 `labels/scene4_*`、`labels/sihdr_*` 與對應 `outputs/*training*`。
+- Scene4 的 100 組 SDR 與 static HDR enable 人工標註都已完成；Version 0 SDR baseline 保持不變，HDR 結果另存為 `0-hdr-candidate`。
+- SI-HDR 的 181 個場景已完成 SDR 與 static HDR benefit 人工確認；`sihdr-sdr-v0` 保留為 SDR 正式版本，另完成 `sihdr-hdr-v0-candidate`。HDR ratio 與 anchor 仍無 ground truth，因此 ratio loss 保持 masked。
+
+## 模型實際輸入、架構與輸出
+
+每張曝光 frame 會轉成 101 維統計特徵：32 維 normalized luminance histogram、64 維 8×8 平均亮度 grid，以及 5 維 camera state。camera state 包含目前已套用的 EV、快門時間、sensor×ISP gain、3-frame pending exposure queue 的第一個與最後一個 EV；各值會先縮放到適合 MLP 的數值範圍。Scene4 使用 DNG embedded preview series 2 的亮度統計；SI-HDR 使用 EXR radiance 經真實 CR2 stack 校準後模擬出的 linear camera-luma。兩者不是相同 input domain。
+
+模型是單層共享 encoder 的 multi-head MLP：`101 -> Linear(64) -> ReLU`，再分成四個 head：
+
+| Head | 輸出 | 目前意義 |
+|---|---|---|
+| EV regression | 1 個 linear scalar `target_ev` | 相對 `100 µs × unity sensor gain × unity ISP gain` 的絕對 log2 exposure target；不是 EV correction，也不是直接的 shutter command |
+| HDR enable | 1 個 sigmoid probability `hdr_benefit` | 場景靜止且 AE 已接近 SDR target 時，啟用 HDR 是否有幫助；以 validation-only threshold 轉成 On／Off |
+| HDR ratio | 2×／4×／8× softmax | 架構已保留，但 Scene4 與 SI-HDR 目前都沒有 ratio ground truth，因此 loss 完全 masked，現階段不可使用此輸出 |
+| Confidence | 1 個 sigmoid probability | 學習人工 label confidence；它不是相機安全性或跨 domain 可靠度的證明 |
+
+訓練採 fixed seed 42、full-batch gradient descent、learning rate 0.003，gradient 逐元素 clip 到 `[-5, 5]`。Composite loss 是 `masked EV MSE + 0.2 × masked HDR BCE + 0.2 × masked ratio CE + 0.1 × confidence BCE`；shutter 邊界的 EV、Unknown HDR 和未標註 ratio 都可各自遮罩。所有 split 都以完整 time step／scene 為單位，同一組 15 張曝光不會跨 train、validation、test。
+
+`DelayAwareController` 另外讀取 `target_ev`，以 pending queue 最後一個未來 EV 為基準，每 frame 最多改變 1 EV，並用 HDR on／off 雙 threshold 避免頻繁切換。訓練模型本身不會輸出 HDR 合成影像，也不會自行決定 shutter／gain 的硬體分配。`test_inference_report.html` 顯示的 prediction 圖是 bracket 中最接近 predicted EV 的既有實拍或模擬 frame；它不是模型生成的新影像。`test_hdr_inference_report.html` 只能檢查 static HDR enable decision，不能驗證 HDR fusion 畫質、motion ghosting 或 sensor HDR ratio。
+
+## Version 0 baseline（2026-09-27）
+
+Version 0 定義為：使用 Scene4 的 100 組人工確認 labels、DNG embedded preview series 2 所提取的 101 維特徵、固定 seed 42、64 維 hidden layer、learning rate 0.003，共訓練 1200 epochs 的 NumPy MLP SDR baseline。
+
+- Training：t000–t069，70 time steps／1050 samples。
+- Validation：t070–t084，15 time steps／225 samples。
+- Test：t085–t099，15 time steps／225 samples。
+- 同一 time step 的 15 張曝光不會跨 split；test 未參與模型更新或最佳 epoch 選擇。
+- 正式權重為 `outputs/scene4_training/model.npz`；依 validation loss 保存的權重為 `model_best_validation.npz`。本次最佳 validation epoch 正好是 1200，因此兩者相同。
+- 可直接開啟 `outputs/scene4_training/report.html` 查看資料切分、最終指標、training／validation loss 曲線與 overfit 判讀；完整逐 epoch 數值保存在 `loss_history.csv`。
+- 可開啟 `outputs/scene4_training/test_inference_report.html`，依圖片查看 held-out test inference。每筆會並排顯示原始 input、prediction 對應的最近實拍 bracket 與人工 target bracket，避免把 bracket 中原本偏暗的 input 誤認為 inference output；報告也可只顯示超出 acceptable range 的圖片、篩選 time step或調整最低誤差門檻。
+- Version 0 目前沒有觀察到 validation loss 回升：最後 10% epochs 的 validation loss 仍下降 2.36%。若要延長訓練，應另開受控實驗並保留 validation checkpoint；更優先的改善方向是加入更多 Scene，驗證跨場景泛化。
+
+## Scene4 training data 狀態與操作流程（2026-09-27）
+
+### 現況
+
+- `input/Scene4` 已確認有 1500 張連號 DNG，來源是 ICCV 2023 的 4D AE Dataset Scene 4。
+- 資料排列為 100 個 time steps，每個 time step 有 15 張不同快門曝光；ISO 固定 100、光圈固定 f/14。
+- 15 個快門依序是 15、8、6、4、2、1、1/2、1/4、1/8、1/15、1/30、1/60、1/125、1/250、1/500 秒。
+- 每 15 張應視為同一個 training pattern，例如 `1P0A2006.dng` 至 `1P0A2020.dng` 是 `Scene4_t000`。
+- 原始影像與 100 個 time steps 的人工 exposure labels 均已完成，正式 training data 已建立。
+- Scene4 只有 SDR exposure stacks，沒有 HDR merge output ground truth。static HDR enable 已用人工判斷補上 supervision；HDR ratio 與 anchor 仍沒有可用 ground truth，因此 ratio loss 必須保持 masked。
+- 已實際產生 1500 筆 frame metadata、100 張 contact sheets、100 筆低信心自動建議，以及 shape 為 `(1500, 101)` 的 feature cache。
+- 人工確認進度為 100/100；已產生正式 labels、三份資料切分 manifests 與模型輸出。
+
+### 一次性準備
+
+先安裝依賴：
+
+```powershell
+python -m pip install -r requirements.txt
+```
+
+再產生 frame metadata、低信心自動建議、100 張 contact sheets 與 feature cache：
+
+```powershell
+python scripts/prepare_scene4.py
+```
+
+輸出如下：
+
+```text
+labels/scene4_draft/frame_metadata.csv
+labels/scene4_draft/scene_annotations.csv
+outputs/scene4_labeling/contact_sheets/Scene4_t000.jpg ... Scene4_t099.jpg
+outputs/scene4_labeling/features.npz
+outputs/scene4_labeling/prepare_report.json
+```
+
+feature cache 目前使用 DNG 內嵌的 1024×683 preview 提取 32-bin histogram、8×8 luma grid 與 camera state。這是先讓完整資料流與 baseline 能訓練的版本；日後若部署端直接使用 Bayer/RAW statistics，training input 也必須換成相同 domain 後重新訓練。
+
+### 人工標註
+
+啟動只綁定本機的標註頁面：
+
+```powershell
+python scripts/label_scene4.py
+```
+
+瀏覽器會開啟 `http://127.0.0.1:8765`。每個 time step 只需選三個值：
+
+1. 可接受的最暗曝光。
+2. 最佳曝光。
+3. 可接受的最亮曝光。
+
+頁面最初顯示的是 preview brightness heuristic 產生的低信心建議，只用來減少操作，不是 ground truth。每組按下「儲存並前往下一組」後才會標記為 `human_review`，而且每次操作都立即寫回 `labels/scene4_draft/scene_annotations.csv`。
+
+### 產生 training labels
+
+100 組全部人工確認後執行：
+
+```powershell
+python scripts/generate_labels.py build `
+  --draft labels/scene4_draft `
+  --output labels/scene4_generated `
+  --config configs/scene4.json
+```
+
+這會產生 `frames.csv`、`scenes.csv` 和模型使用的 `training_samples.csv`。每個 time step 的 scene-level target 會套用到該組 15 張不同曝光輸入，因此共有 1500 筆 training samples。
+
+正式資料另外依 time step 輸出三份獨立 manifest，確保同一組 15 張曝光不會跨資料集：
+
+```text
+labels/scene4_generated/splits/train.csv       70 time steps / 1050 samples
+labels/scene4_generated/splits/validation.csv  15 time steps / 225 samples
+labels/scene4_generated/splits/test.csv        15 time steps / 225 samples
+labels/scene4_generated/splits/summary.json
+```
+
+### 訓練
+
+```powershell
+python scripts/train_scene4.py
+```
+
+訓練程式預設拒絕尚未人工確認的 auto labels，並按連續時間區間切分資料，避免同一曝光 stack 被隨機分到不同集合：
+
+```text
+train:      t000-t069
+validation: t070-t084
+test:       t085-t099
+```
+
+輸出保存在 `outputs/scene4_training/`，包括 `model.npz`、`model_best_validation.npz`、`report.json`、`report.html`、逐 epoch `loss_history.csv` 與逐樣本 `predictions.csv`。每次訓練完成後也會自動產生 `test_inference_report.html`；若該版本有 HDR supervision，另會產生 `test_hdr_inference_report.html`。只有單一 Scene4 時，test 指標只能表示對後段時間的泛化；正式跨場景評估仍應加入其他 Scene，並以完整 Scene 作 train/validation/test 分割。
+
+訓練程式預設會自動產生 test inference 圖片報告。若只需要重新建立圖片頁、不重新訓練，可執行：
+
+```powershell
+python scripts/generate_test_inference_report.py
+```
+
+報告會嚴格使用 `predictions.csv` 中的 test split，將 225 張 DNG embedded preview 縮圖直接嵌入單一 `test_inference_report.html`，並另外輸出 `test_inference_report_summary.json`。若同目錄存在 `hdr_predictions_at_target_ev.csv`，同一指令也會產生 `test_hdr_inference_report.html` 與摘要 JSON。Version 0 的 test 結果共有 9/225 張超出 acceptable range；這 9 張集中在 t090–t096 的 exposure index 0 或 1，而且 prediction 均高於人工 target。
+
+### Metric-assisted 第二次 label review
+
+為檢查 Version 0 人工 label 是否有系統性曝光偏差，可先計算每張 bracket 的客觀品質指標：
+
+```powershell
+python scripts/analyze_scene4_exposure_quality.py
+```
+
+每張 preview 會記錄 normalized luminance entropy、RGB channel saturated ratio、dark ratio、mean luma 與以下初始分數：
+
+```text
+quality score = entropy - 2 × saturated ratio - dark ratio
+```
+
+結果寫入 `labels/scene4_metric_review/`。原始 Version 0 labels 完整保存在 `original_scene_annotations.csv`；新的 `scene_annotations.csv` 會保留原選擇，但全部標為 `metric_review_pending`，不會在未人工確認前進入正式訓練。
+
+啟動第二次人工 review：
+
+```powershell
+python scripts/label_scene4.py --draft labels/scene4_metric_review
+```
+
+頁面會並排顯示 Version 0 label、metric 建議，以及 15 張曝光各自的 entropy、saturated ratio、dark ratio、mean luma 與 score。可以套用 metric 建議、還原 Version 0 選擇，或自行調整；每組按下儲存後才會標為 `human_review`。
+
+第一輪 metric 分析和 Version 0 人工 preferred 的比較結果為：35/100 組完全相同，65/100 組建議更短、較暗的曝光，沒有任何一組建議更亮，平均相差 2.42 個 exposure indices。原人工 preferred 集中在 index 4–6，metric preferred 集中在 index 8–10。因此目前資料不支持「人工 label 系統性偏暗」；單看 entropy／saturation／darkness 反而會把 target 往暗處移。Metric 結果只能作為第二次人工 review 的提示，不能直接覆蓋 labels。
+
+100 組完成第二次確認後，候選 labels 應輸出到新的目錄，避免覆蓋 Version 0：
+
+```powershell
+python scripts/generate_labels.py build `
+  --draft labels/scene4_metric_review `
+  --output labels/scene4_generated_v1_candidate `
+  --config configs/scene4.json
+
+python scripts/train_scene4.py `
+  --labels labels/scene4_generated_v1_candidate/training_samples.csv `
+  --split-output labels/scene4_generated_v1_candidate/splits `
+  --output outputs/scene4_training_v1_candidate
+```
+
+目前 metric-assisted SDR review draft 保留在 `labels/scene4_metric_review/`，但不納入後續 labels 或 training，除非明確重新啟用。
+
+### Scene4 HDR enable 人工標註
+
+Scene4 可以用來標註 `HDR benefit if static` 與明確案例的 binary `HDR enable if static`，但因資料集沒有真正的 HDR merge output，這些 labels 只代表「假設場景靜止時，多曝光是否可能比最佳單張 SDR 更有價值」，不能直接證明 HDR 合成畫質、motion ghosting 或 sensor ratio 正確。
+
+先建立不會修改 Version 0 SDR labels 的獨立 draft：
+
+```powershell
+python scripts/prepare_scene4_hdr_review.py
+```
+
+再啟動 HDR 專用人工標註頁：
+
+```powershell
+python scripts/label_scene4.py `
+  --draft labels/scene4_hdr_review `
+  --mode hdr
+```
+
+每個 time step 依 contact sheet 判斷：最佳單張 SDR 是否無法同時保住重要高光與重要暗部，以及較短／較長曝光是否真的能補回有用細節。標註規則固定為：
+
+| HDR benefit | 判斷 | `hdr_enable_if_static` | Training mask |
+|---:|---|---:|---:|
+| 0 | 完全沒有幫助 | 0 | 1 |
+| 0.25 | 幫助很小，不值得切換 | 0 | 1 |
+| 0.5 | 主觀或無法確定 | 留白 | 0 |
+| 0.75 | 明顯有幫助 | 1 | 1 |
+| 1 | 單張 SDR 明顯不足 | 1 | 1 |
+
+不要因太陽、燈泡、反光點等不重要的小面積 clipping 就標 HDR on。若 bracket 內有移動物體導致無法判讀靜態效果，可標 0.5；實際 runtime 還必須另外加入 motion／ghosting gate，不能只看此模型輸出。
+
+`hdr_ratio_class` 與 `hdr_anchor_filename` 目前應留在 Unknown／空白。必須先有相同 ISP pipeline 產生的 2×、4×、8× HDR 候選影像，或真實 sensor HDR captures，才能比較 ratio 與 anchor；否則 generator 會保持 `hdr_ratio_mask=0`。
+
+100 組 HDR review 完成後，先檢查 train／validation／test 各自是否同時包含 HDR on 與 off，再建立獨立候選版本：
+
+```powershell
+python scripts/generate_labels.py build `
+  --draft labels/scene4_hdr_review `
+  --output labels/scene4_generated_hdr_candidate `
+  --config configs/scene4.json
+
+python scripts/train_scene4.py `
+  --labels labels/scene4_generated_hdr_candidate/training_samples.csv `
+  --split-output labels/scene4_generated_hdr_candidate/splits `
+  --output outputs/scene4_training_hdr_candidate `
+  --version 0-hdr-candidate
+```
+
+HDR 標註與候選訓練已完成。100 組中有 HDR On 65 組、Off 35 組、Unknown 0 組；ratio 與 anchor 仍全部留白。既有連續時間 split 都同時包含兩類：
+
+| Split | Time steps | HDR On | HDR Off |
+|---|---:|---:|---:|
+| Training t000–t069 | 70 | 50 | 20 |
+| Validation t070–t084 | 15 | 5 | 10 |
+| Test t085–t099 | 15 | 10 | 5 |
+
+候選模型以 validation split 的 balanced accuracy 選擇 threshold，且每個 time step 只取「最接近人工 SDR target EV 的實拍 frame」作為 HDR 判斷操作點。選出的 probability threshold 是 `0.788064`，結果如下：
+
+| Split | Accuracy | Balanced accuracy | Precision | Recall | Specificity | F1 |
+|---|---:|---:|---:|---:|---:|---:|
+| Training | 100% | 100% | 100% | 100% | 100% | 100% |
+| Validation | 100% | 100% | 100% | 100% | 100% | 100% |
+| Test | 100% | 100% | 100% | 100% | 100% | 100% |
+
+這個 100% 只適用於 AE 已接近 SDR target 的操作點，而且 test 只有 15 個 time steps。若把同一 threshold 套到所有不同亮度的 bracket frames，test accuracy 是 58.67%、balanced accuracy 是 62.33%，代表 HDR probability 對目前曝光仍很敏感。因此 runtime 現階段只能在 AE 收斂附近評估 HDR；不能把此結果解讀為任意曝光、動態場景或跨 Scene 都已可靠。`0.788064` 也是單一 decision threshold，尚未完成 controller 的 on/off hysteresis thresholds 校正。
+
+候選模型的 SDR test MAE 為 0.4856 EV、RMSE 為 0.6241 EV，96.00% 落在人工 acceptable interval；與 Version 0 接近。Composite training loss 由 172.0057 降至 0.3280，validation loss 由 184.1344 降至 0.5243；最佳 validation epoch 仍是 1200，最後 10% epochs 下降 1.86%，目前沒有 validation loss 回升的跡象。
+
+完整結果可開啟 `outputs/scene4_training_hdr_candidate/report.html`。SDR 圖片比較位於 `test_inference_report.html`；HDR 圖片比較位於 `test_hdr_inference_report.html`，會依 held-out test time step 顯示人工 On/Off、模型 probability、threshold、操作 frame 與完整 15 張曝光 bracket。逐 time step 操作點輸出位於 `hdr_predictions_at_target_ev.csv`；所有 samples、time-step mean 診斷及逐 epoch loss 也保存在同一輸出資料夾。Version 0 權重與報告沒有被覆蓋，這個實驗仍命名為 `0-hdr-candidate`，尚未升為 Version 1。
+
+本次 100 組人工 labels 的正式訓練結果：
+
+```text
+training loss:   171.8434 -> 0.2220
+validation loss: 183.9994 -> 0.3589
+best validation epoch/loss: 1200 / 0.3589
+
+train:      MAE 0.2638 EV / RMSE 0.4135 EV / acceptable interval 99.71%
+validation: MAE 0.3688 EV / RMSE 0.5545 EV / acceptable interval 99.11%
+test:       MAE 0.4858 EV / RMSE 0.6238 EV / acceptable interval 96.00%
+```
+
+Loss 定義為 `EV MSE + 0.2 × masked HDR BCE + 0.2 × masked ratio CE + 0.1 × confidence BCE`。Scene4 的 HDR 與 ratio masks 都是 0，所以曲線主要反映 EV regression 與 confidence。Validation loss 在 epoch 1200 達到目前最低點，最後 120 epochs 仍下降 2.36%，尚未觀察到 overfit；但 training／validation 最終仍有 0.1369 的 generalization gap。繼續增加 epochs 可能小幅改善 validation，但不保證改善 test 或跨場景表現。
+
+這些結果使用 DNG embedded preview series 2 的 histogram/luma features。HDR supervised sample 數量為 0，HDR enable/ratio losses 已被 mask；此模型是 Scene4 SDR target baseline。
+
+## SI-HDR 轉換、人工覆核與候選訓練（2026-09-28）
+
+### 資料來源與本機稽核
+
+SI-HDR 官方資料頁為 [Cambridge Apollo Repository](https://www.repository.cam.ac.uk/items/c02ccdde-db20-4acd-8941-7816ef6b7dc7)，專案說明與論文連結位於 [SI-HDR benchmark](https://www.cl.cam.ac.uk/research/rainbow/projects/sihdr_benchmark/)。資料採 CC BY 4.0；若發布衍生資料、模型或報告，必須保留原作者 attribution 與授權資訊。
+
+本機 `input/raw/sihdr` 已確認：
+
+- 181 個 scene、每 scene 5 張 Canon EOS 5D Mark III CR2，共 905 張真實 RAW、約 21.87 GiB。
+- 181 張官方融合 HDR reference EXR；`reference.zip` 為 1,491,596,813 bytes，壓縮檔 CRC 檢查通過。
+- CR2 的 ISO 與光圈並不固定，因此不能只依快門時間直接視為 Scene4 f/14、ISO 100 曝光。
+- 官方 EXR reference 是 radiance reference；由它重新渲染出的 15 段曝光是模擬資料，不是真實 Scene4 DNG，也不是新的真實 Bayer capture。
+
+### 已完成的轉換
+
+`scripts/prepare_sihdr.py` 會先讀取 CR2 EXIF 與 Bayer black／white levels，以 CFA 對應的線性 RGB 權重建立 luma；再依 shutter、ISO、aperture 將 5 張 RAW stack 正規化到 ISO 100、f/14 radiance rate。官方 EXR luminance 會用 RAW stack 的重疊有效區做 robust scale calibration，最後渲染 Scene4 相同的 15 個 shutter：15、8、6、4、2、1、1/2、1/4、1/8、1/15、1/30、1/60、1/125、1/250、1/500 秒。
+
+目前沒有把結果冒充為 full-resolution Bayer 或 DNG。訓練使用的是模擬 linear camera-luma 所提取的 101 維 histogram／8×8 grid／camera-state features；JPEG 只供 contact sheet 與 HTML 人工觀察。執行：
+
+```powershell
+python -m pip install -r requirements.txt
+python scripts/prepare_sihdr.py
+python scripts/build_sihdr_candidate.py
+```
+
+主要產物：
+
+```text
+outputs/sihdr_prepared/source_raw_manifest.csv       # 905 張真實 CR2 metadata
+outputs/sihdr_prepared/scene_audit.csv               # 181 scene 稽核
+outputs/sihdr_prepared/simulation_manifest.csv       # 2,715 張模擬曝光 provenance
+outputs/sihdr_prepared/features.npz                  # shape (2715, 101)
+outputs/sihdr_prepared/previews/                     # HTML/人工覆核用 JPEG
+outputs/sihdr_prepared/contact_sheets/               # 181 張 15-exposure contact sheet
+labels/sihdr_draft/                                  # radiance heuristic 初稿
+labels/sihdr_generated_candidate/split_assignments.csv
+```
+
+### Label、邊界遮罩與 split
+
+以下是人工覆核前的 heuristic candidate 紀錄：preferred exposure、acceptable interval 與 HDR benefit 都由 radiance／clipping heuristic 產生，只能作 pipeline candidate。181 個 scene 中，124 個建議 HDR On、21 個 Off、36 個 Unknown；Unknown 會以 `hdr_label_mask=0` 排除 HDR loss，ratio 全部保持 unknown／masked。
+
+有 64 個 scene 的 preferred exposure 落在 15 秒端點，真正最佳曝光可能位於既有 shutter 範圍之外。這些 scene 全部保留給 HDR head，但設 `target_ev_mask=0`，不會把受截斷的 15 秒值教給 EV regression；其餘 117 scene／1,755 samples 才參與曝光 loss。模型的 loss 現在支援 EV、HDR、ratio、confidence 各自 mask。
+
+資料以完整 scene 做 deterministic stratified split，同一 scene 的 15 張曝光不會跨集合：
+
+| Split | Scenes | Samples | HDR On | HDR Off | HDR Unknown |
+|---|---:|---:|---:|---:|---:|
+| Training | 127 | 1,905 | 86 | 15 | 26 |
+| Validation | 27 | 405 | 19 | 3 | 5 |
+| Test | 27 | 405 | 19 | 3 | 5 |
+
+SDR 人工覆核已於 2026-09-28 完成 181/181；若要加入 HDR supervision，再執行第二條 HDR 模式命令：
+
+```powershell
+python scripts/label_scene4.py `
+  --draft labels/sihdr_draft `
+  --contact-sheets outputs/sihdr_prepared/contact_sheets `
+  --dataset-name SI-HDR `
+  --port 8767
+
+python scripts/label_scene4.py `
+  --draft labels/sihdr_draft `
+  --contact-sheets outputs/sihdr_prepared/contact_sheets `
+  --dataset-name SI-HDR `
+  --mode hdr `
+  --port 8767
+```
+
+每次儲存會立即寫回 CSV；HDR 可將不確定案例留為 benefit 0.5／Unknown。未設定 `hdr_reviewed=1` 的 heuristic 欄位會在 build 時自動清空，確保不會混入正式 loss。
+
+### `sihdr-reference-candidate` 訓練結果
+
+候選模型已用固定 seed 42、hidden dimension 64、learning rate 0.003 訓練 1,200 epochs。這是獨立 SI-HDR 實驗，沒有覆蓋或混入 Scene4 Version 0：
+
+```powershell
+python scripts/train_scene4.py `
+  --features outputs/sihdr_prepared/features.npz `
+  --labels labels/sihdr_generated_candidate/training_samples.csv `
+  --config configs/sihdr.json `
+  --output outputs/sihdr_training_candidate `
+  --input outputs/sihdr_prepared/previews `
+  --split-output labels/sihdr_generated_candidate/splits `
+  --split-assignments labels/sihdr_generated_candidate/split_assignments.csv `
+  --dataset-name SI-HDR `
+  --version sihdr-reference-candidate `
+  --allow-auto-labels
+```
+
+Composite training loss 由 99.4552 降到 1.5797，validation loss 由 111.6628 降到 2.2202；最佳 validation epoch 是 1200，最後 10% 只再下降約 0.91%。目前未見 validation loss 回升，但已接近平臺，因此不建議只增加 epochs。EV test 僅計算有 `target_ev_mask=1` 的 17 scene／255 samples：MAE 0.9838 EV、RMSE 1.3286 EV，acceptable interval 16.86%。
+
+HDR 以 validation 選出的 operating-frame threshold 0.842185 評估，test 22 個有 label 的 scene 中只有 8 個正確，accuracy 36.36%、balanced accuracy 49.12%。這代表目前 heuristic HDR label 加上單張曝光輸入還不夠可靠，不能用這個候選模型取代 Scene4 的人工標註模型，也不應直接部署 HDR enable。
+
+報告位於：
+
+- `outputs/sihdr_training_candidate/report.html`：training／validation loss、overfit 與 split 指標。
+- `outputs/sihdr_training_candidate/test_inference_report.html`：17 個 EV-supervised test scenes、255 張逐圖比較。
+- `outputs/sihdr_training_candidate/test_hdr_inference_report.html`：22 個 HDR-supervised test scenes、完整 15-frame bracket 與錯誤案例。
+
+### `sihdr-sdr-v0` 人工 SDR 正式版本
+
+181 個 SDR scene 已全部人工確認；label 檔 SHA-256 為 `EF259E098DD366F65CE56774B03D7B83F5B5FA492DED11520B0E5D4699FBFA12`。人工覆核將 shutter 邊界場景由 heuristic 的 64 個降為 20 個，正式 EV supervision 因此有 161 scenes／2,415 samples。HDR 人工覆核仍是 0/181，build 時會清空未覆核的 heuristic HDR 欄位；正式 labels 的 `hdr_label_mask` 與 `hdr_ratio_mask` 均為 0。
+
+| Split | All scenes | All samples | EV-supervised scenes | EV-supervised samples |
+|---|---:|---:|---:|---:|
+| Training | 127 | 1,905 | 113 | 1,695 |
+| Validation | 27 | 405 | 24 | 360 |
+| Test | 27 | 405 | 24 | 360 |
+
+用 validation-only 對照 1,200、2,400 與 4,800 epochs；validation loss 分別為 2.7329、2.4695、2.2372。4,800 epochs 最佳且末段只再下降 0.89%，判定接近平臺，因此正式版本固定為 4,800 epochs，不再繼續單純增加 epochs。對照實驗全在系統暫存目錄執行並已刪除，只保留正式版本：
+
+```powershell
+python scripts/build_sihdr_candidate.py `
+  --output labels/sihdr_generated_sdr_v0
+
+python scripts/train_scene4.py `
+  --features outputs/sihdr_prepared/features.npz `
+  --labels labels/sihdr_generated_sdr_v0/training_samples.csv `
+  --config configs/sihdr.json `
+  --output outputs/sihdr_training_sdr_v0 `
+  --input outputs/sihdr_prepared/previews `
+  --split-output labels/sihdr_generated_sdr_v0/splits `
+  --split-assignments labels/sihdr_generated_sdr_v0/split_assignments.csv `
+  --dataset-name SI-HDR `
+  --version sihdr-sdr-v0 `
+  --epochs 4800
+```
+
+正式結果：
+
+| Split | MAE (EV) | RMSE (EV) | Acceptable interval |
+|---|---:|---:|---:|
+| Training | 0.9759 | 1.2738 | 56.46% |
+| Validation | 1.1291 | 1.4725 | 50.83% |
+| Test | 1.3405 | 1.5883 | 41.67% |
+
+Composite training loss 由 146.3181 降到 1.6915，validation loss 由 140.4724 降到 2.2372；最佳 validation epoch 是 4,800，沒有觀察到 validation loss 回升。報告保存在 `outputs/sihdr_training_sdr_v0/report.html`，逐圖 test 比較為 `test_inference_report.html`。因正式版沒有人工 HDR supervision，所以不產生容易誤導的 HDR test 圖片報告。
+
+### `sihdr-hdr-v0-candidate` 人工 HDR 候選版本
+
+HDR 人工覆核已完成 181/181；更新後完整 annotation CSV 的 SHA-256 為 `3BA0DB53E80EBA756E066AF748D58A97E595F0EAECF0BAE23C8B01FC43105CEA`。分布為 HDR On 101、Off 27、Unknown 53；Unknown 不參與 HDR loss。Ratio 與 anchor 均為 0 筆，因此 `hdr_ratio_mask=0`。明確 HDR supervision 共 128 scenes／1,920 samples。
+
+HDR 與 exposure bin 的 stratified scene split：
+
+| Split | Scenes | HDR On | HDR Off | HDR Unknown |
+|---|---:|---:|---:|---:|
+| Training | 127 | 71 | 19 | 37 |
+| Validation | 27 | 15 | 4 | 8 |
+| Test | 27 | 15 | 4 | 8 |
+
+使用 validation composite loss 比較 1,200／2,400／4,800／9,600 epochs，分別為 3.3244／3.0495／2.7148／2.5165；9,600 run 的最佳 validation checkpoint 在 epoch 9,598、loss 2.5160，因此候選版本以 `model_best_validation.npz` 作部署／比較權重。所有 epoch 對照目錄均已刪除。
+
+Validation operating point 選出的 HDR threshold 為 `0.600821`。每個 scene 僅使用最接近人工 SDR target EV 的 frame 評估：
+
+| Split | Scenes | Accuracy | Balanced accuracy | Precision | Recall | Specificity | F1 |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Training | 90 | 94.44% | 86.84% | 93.42% | 100.00% | 73.68% | 96.60% |
+| Validation | 19 | 94.74% | 96.67% | 100.00% | 93.33% | 100.00% | 96.55% |
+| Test | 19 | 94.74% | 87.50% | 93.75% | 100.00% | 75.00% | 96.77% |
+
+Test confusion matrix 為 TP 15、TN 3、FP 1、FN 0。若把同一 threshold 套到 test 的所有 285 張 labeled bracket frames，accuracy 為 73.33%、balanced accuracy 73.94%，顯示模型在 AE 接近 target 時較可靠，任意曝光下仍有 domain sensitivity。
+
+同一 candidate 的 SDR test 為 MAE 1.0017 EV、RMSE 1.2825 EV、acceptable interval 52.50%。Composite training loss 由 144.3664 降至 1.6249，validation loss由 145.5376 降至 2.5165；最佳 epoch 接近訓練上限，沒有明顯 overfit 回升，但不再只靠增加 epochs 改善。
+
+正式重現命令：
+
+```powershell
+python scripts/build_sihdr_candidate.py `
+  --output labels/sihdr_generated_hdr_v0_candidate
+
+python scripts/train_scene4.py `
+  --features outputs/sihdr_prepared/features.npz `
+  --labels labels/sihdr_generated_hdr_v0_candidate/training_samples.csv `
+  --config configs/sihdr.json `
+  --output outputs/sihdr_training_hdr_v0_candidate `
+  --input outputs/sihdr_prepared/previews `
+  --split-output labels/sihdr_generated_hdr_v0_candidate/splits `
+  --split-assignments labels/sihdr_generated_hdr_v0_candidate/split_assignments.csv `
+  --dataset-name SI-HDR `
+  --version sihdr-hdr-v0-candidate `
+  --epochs 9600
+```
+
+報告位於 `outputs/sihdr_training_hdr_v0_candidate/report.html`；SDR 與 HDR 圖片頁分別為 `test_inference_report.html`、`test_hdr_inference_report.html`。HDR 圖片頁包含 19 個 labeled test scenes 的 operating frame 與完整 15-frame bracket。
+
+這仍是 static HDR enable candidate：SI-HDR 的 15-shutter inputs 是模擬 linear luma，沒有 sensor 真實 HDR output、ratio 畫質、動態 sequence 或 ghosting ground truth。因此不能把 94.74% 解讀為真實相機 HDR pipeline 已可部署。下一步應做 SI-HDR pretraining + Scene4 fine-tuning／domain alignment 對照，並另外取得 motion 與真實 HDR merge 資料。
 
 ## 建議的第一版系統
 
@@ -529,7 +978,7 @@ python3 -m unittest discover -s tests -v
 python3 scripts/run_smoke_test.py
 ```
 
-唯一必要套件為 NumPy；版本需求記錄於 `requirements.txt`。
+Smoke test 的核心模型只依賴 NumPy；Scene4 DNG preparation 另外使用 Pillow、tifffile 與 imagecodecs，版本需求記錄於 `requirements.txt`。
 
 ### Smoke test 的資料假設
 
@@ -599,3 +1048,116 @@ python3 scripts/run_smoke_test.py
 - 生成器會換算 gain code、計算 log exposure、用人工選定的 frame 建立 scene oracle、展開 training samples，並為未知 HDR labels 產生 mask。
 - 新增 label generator 單元測試；目前全部 4/4 測試通過。
 - 下一步：取得真實 frame metadata 與人工 SDR 選圖後生成正式 labels；正式訓練前再將 interval loss 和 HDR mask 接入 trainer。
+
+### 2026-09-27｜Scene4 preparation、標註介面與 provisional training
+
+- 依官方資料規格與 DNG EXIF 確認 Scene4 共 1500 張 DNG，排列為 100 time steps × 15 exposures；ISO 100、f/14，快門從 15 秒至 1/500 秒。
+- 新增 `scripts/prepare_scene4.py`，會驗證檔名連續性與 EXIF、拆分 `Scene4_t000` 至 `Scene4_t099`、建立 metadata、contact sheets、自動建議與 feature cache。
+- 新增 `scripts/label_scene4.py` 本機網頁介面；每組只需確認最暗可接受、最佳與最亮可接受曝光，逐組自動存檔並顯示人工確認進度。
+- 新增 `scripts/train_scene4.py`，以連續時間區段切分 train/validation/test，並預設拒絕未經 `human_review` 的 labels。
+- Scene4 無 HDR ground truth，因此模型的 HDR enable 與 ratio losses 已接入 masks；測試確認 mask 為 0 時對應 head 權重不會更新。
+- 已產生 1500 筆 frame metadata、100 張 contact sheets、100 筆低信心自動建議與 `(1500, 101)` feature cache；目前人工確認進度為 0/100。
+- 為驗證 wiring，另以 auto labels 建立 1500 筆 provisional samples 並完成 baseline training：loss 由 152.7224 降至 0.2881，validation MAE 0.4401 EV、test MAE 0.4644 EV。此結果只證明流程可訓練，不代表曝光品質或正式模型表現。
+- 單元測試目前 6/6 通過，涵蓋 PGM reader、controller、label generator、Scene4 分組與 HDR mask。
+- 下一步：人工確認 100 組 Scene4 labels，生成 `labels/scene4_generated/`，再以不帶 `--allow-auto-labels` 的正式指令訓練。
+
+### 2026-09-27｜Scene4 正式人工 labels 與 training
+
+- 100/100 個 time steps 均已標記為 `human_review`，preferred、acceptable min、acceptable max 無缺值；label generator 的 exposure interval 驗證全部通過。
+- 已生成 `labels/scene4_generated/frames.csv`、`scenes.csv` 與 1500 筆 `training_samples.csv`。
+- 依完整 time step 做連續時間切分：training 為 t000–t069（70 steps／1050 samples）、validation 為 t070–t084（15 steps／225 samples）、test 為 t085–t099（15 steps／225 samples）。
+- 已輸出 `labels/scene4_generated/splits/train.csv`、`validation.csv`、`test.csv` 與 `summary.json`；同一 time step 的 15 張曝光只會出現在同一份資料中。
+- 正式模型輸出位於 `outputs/scene4_training/`。loss 從 171.8434 降至 0.2221；validation MAE 為 0.3688 EV，test MAE 為 0.4858 EV。
+- validation 有 99.11%、test 有 96.00% 的預測落在人工 acceptable exposure interval 內。由於 acceptable interval 通常涵蓋多個 exposure steps，此比例應搭配 MAE/RMSE 解讀。
+- Scene4 沒有 HDR ground truth，HDR supervised samples 為 0，HDR enable/ratio heads 未由本次資料更新。
+- 單元測試目前 7/7 通過，新增 train/validation/test 邊界測試。
+- 限制：這是單一 Scene 內的時間泛化結果；若要衡量跨場景泛化，需要加入其他 Scene，並以完整 Scene 為單位重新切分。
+
+### 2026-09-27｜Version 0、HTML report 與 loss curve
+
+- 將本次 Scene4 正式模型記為 Version 0：seed 42、hidden dimension 64、learning rate 0.003、1200 epochs，資料 split 與人工 labels 固定不變。
+- 訓練程式新增每個 epoch 的 training／validation composite loss 與 EV MSE 紀錄，輸出 `outputs/scene4_training/loss_history.csv`。
+- 新增自含式 `outputs/scene4_training/report.html`，可切換 loss 圖的 log／linear Y 軸，並顯示 split、MAE、RMSE、acceptable interval、loss checkpoints 與 overfit 判讀。
+- Training loss 由 171.8434 降至 0.2220；validation loss 由 183.9994 降至 0.3589。最低 validation loss 位於 epoch 1200，最後 10% epochs 仍改善 2.36%，目前未觀察到 validation loss 回升。
+- 同步輸出 `model_best_validation.npz`。Version 0 的最佳 validation epoch 是最後一個 epoch，因此最佳 checkpoint 與正式 final model 權重相同。
+- 是否繼續訓練：可另做較長 epochs 的對照實驗，且必須依 validation loss 保存最佳 checkpoint；目前更需要增加其他 Scene，因為單一 Scene 的額外 epochs 無法證明跨場景泛化會改善。
+- 單元測試更新為 8/8 通過，新增 masked Scene4 loss 組成驗證。
+
+### 2026-09-27｜Version 0 test inference 圖片報告
+
+- 新增 `scripts/generate_test_inference_report.py`，讀取 Version 0 的 `predictions.csv`，只選 held-out test split，並解碼 DNG embedded preview series 2。
+- 產生單檔 `outputs/scene4_training/test_inference_report.html`，內嵌 225 張 test thumbnails，可依 absolute error、time step、exposure index 排序，或只查看超出 acceptable range 的圖片。
+- Test absolute error 的 median 為 0.3955 EV、P90 為 1.0161 EV、最大值為 1.5580 EV；最大 target error 圖片為 `1P0A3305.dng`（Scene4_t086、exposure index 9），但仍落在該組人工 acceptable range 內。
+- 實際超出 acceptable range 的圖片共有 9 張，集中在 Scene4_t090–t096 的 exposure index 0／1；這些案例的模型 prediction 全部高於人工 target，顯示最亮輸入端存在一致的正向 exposure bias。
+- 另輸出 `test_inference_report_summary.json`，保存 test 統計、最差圖片與各 time step 的 mean／max error，方便後續程式化比較版本。
+
+### 2026-09-27｜Metric-assisted 第二次 label review
+
+- 修正 test inference 圖片報告的視覺語意：每筆改為並排顯示 input、prediction 映射到最近的實拍 bracket，以及人工 target bracket。原報告中的單張圖片只是模型輸入，不能當成模型輸出的曝光影像。
+- 新增 `scripts/analyze_scene4_exposure_quality.py`，對 1500 張 preview 計算 luminance entropy、RGB channel saturated ratio、dark ratio、mean luma 與綜合 quality score。
+- 建立 `labels/scene4_metric_review/` 作為獨立的第二次 review draft；Version 0 原始 labels 不變，且保存額外快照 `original_scene_annotations.csv`。
+- 擴充 `scripts/label_scene4.py`：顯示 Version 0 與 metric 建議、逐曝光 metrics，並提供還原原選擇與套用 metric 建議按鈕。新 draft 目前進度為 0/100，必須逐組儲存才算第二次人工確認。
+- 第一輪 metric 建議有 35/100 組與人工 preferred 相同；其餘 65 組全部建議更暗的 exposure index，平均差 2.42 indices。這個結果不支持人工 labels 偏暗，也顯示純 metric 最佳值不能直接視為 ground truth。
+- 單元測試更新為 9/9，新增 synthetic bright／normal／dark bracket 測試，確認 heuristic 會排除全飽和與全暗極端。
+
+### 2026-09-27｜Scene4 static HDR enable 標註流程
+
+- Metric-assisted SDR review 保留但暫停使用；其 draft 與分析結果未刪除，也未納入 Version 0 training。
+- 新增 `scripts/prepare_scene4_hdr_review.py`，從 Version 0 的 100 組人工 SDR labels 建立獨立 `labels/scene4_hdr_review/`，目前 HDR review 進度為 0/100。
+- 擴充本機標註器的 `--mode hdr`，顯示 static HDR benefit、enable、ratio、anchor、confidence 與 notes；HDR 進度和 SDR review 分開計算。
+- 固定 benefit／enable 規則：0／0.25 對應 off，0.5 對應 unknown 並 mask，0.75／1 對應 on。前後端與 label generator 都會拒絕不一致的組合。
+- Scene4 沒有 HDR merge ground truth，因此 ratio 與 anchor 預設維持 unknown；實際 motion／ghosting safety 必須由未來的動態資料與 runtime gate 處理。
+- 單元測試更新為 10/10，新增 HDR draft 保留 SDR label、HDR 儲存與 benefit／enable 一致性驗證。
+
+### 2026-09-27｜Scene4 static HDR labels 完成與候選訓練
+
+- HDR 人工 review 已完成 100/100 組：On 65、Off 35、Unknown 0；ratio 與 anchor 仍保持 unknown，不參與 loss。
+- 由原本的完整 time-step 邊界切分建立 `labels/scene4_generated_hdr_candidate/`：training 為 On 50／Off 20，validation 為 On 5／Off 10，test 為 On 10／Off 5。
+- 擴充 `scripts/train_scene4.py`，記錄 masked HDR BCE、confusion matrix、precision、recall、specificity、balanced accuracy、F1，並只使用 validation 選擇 HDR threshold。
+- 完成獨立的 `0-hdr-candidate` 訓練，輸出至 `outputs/scene4_training_hdr_candidate/`，沒有覆蓋 Version 0。
+- 以每組最接近 SDR target EV 的 frame 作為部署操作點時，validation 選出的 threshold 為 0.788064；training／validation／test 的 accuracy 與 balanced accuracy 都是 100%。
+- 任意 bracket frame 的 test accuracy 只有 58.67%、balanced accuracy 62.33%，顯示 HDR head 尚未具備曝光不變性。現階段只能在 AE 接近 target 後使用，且仍需要其他 Scene、動態資料、motion gate 及 hysteresis threshold 校正。
+- SDR test MAE 0.4856 EV、RMSE 0.6241 EV、acceptable interval 96.00%；composite training loss 由 172.0057 降至 0.3280，validation loss 由 184.1344 降至 0.5243，最佳 epoch 為 1200。
+- 新增 `hdr_predictions_at_target_ev.csv` 與 `hdr_predictions_by_time_step.csv`，HTML report 同時呈現操作點、所有曝光 samples 與 diagnostic 結果。
+- 單元測試更新為 12/12，新增 HDR binary confusion metrics 與 validation-only threshold selection 測試。
+
+### 2026-09-27｜每次訓練自動產生 SDR／HDR test 圖片報告
+
+- 將 `scripts/generate_test_inference_report.py` 改為支援任意 training output 與版本，不再把頁面固定標為 Version 0。
+- `scripts/train_scene4.py` 現在每次訓練結束會自動產生 `test_inference_report.html`；有 HDR supervision 時也會產生 `test_hdr_inference_report.html`，並把兩個連結寫回主 `report.html` 與 `report.json`。
+- HDR 頁面只讀取 held-out test split，以每個 time step 最接近 SDR target EV 的 frame 顯示正式 HDR decision；同時列出完整 15 張 bracket，藍框表示操作 frame，紅框表示若在該曝光直接判斷會分類錯誤。
+- 已為 `0-hdr-candidate` 補產兩份圖片報告及對應 summary JSON。操作點為 15/15 正確；所有 bracket frames 為 132/225 正確，頁面可依任意曝光錯誤數、probability margin、time step 與人工 label 篩選排序。
+- 圖片均為原始 SDR bracket previews，不是 HDR merge output；頁面因此只能檢查 enable decision，不能評估最終 HDR 合成畫質或 ghosting。
+- 單元測試更新為 13/13，新增 HDR 圖片報告操作 frame 與完整 bracket 組裝驗證。
+
+### 2026-09-28｜SI-HDR 181-scene 轉換與獨立候選訓練
+
+- 稽核 `input/raw/sihdr`：181 個 scene、905 張 Canon EOS 5D Mark III CR2；下載並驗證官方 181 張 HDR reference EXR，資料授權為 CC BY 4.0。
+- 新增 `src/ai_ae/sihdr.py` 與 `scripts/prepare_sihdr.py`，依 RAW black／white level、CFA、shutter、ISO、aperture 合併實拍 stack，校準官方 EXR radiance，模擬 ISO 100、f/14 的 Scene4 15-shutter linear-luma inputs。
+- 輸出 2,715 張預覽、181 張 contact sheets、shape `(2715, 101)` feature cache、完整 source/simulation manifests 與 heuristic label draft；所有產物保留 simulated provenance，未宣稱為真實 Bayer／DNG。
+- 新增 `scripts/build_sihdr_candidate.py`，建立 deterministic scene-level stratified 127/27/27 split。181 scene 全數保留；64 個 shutter-boundary scene 只遮罩 EV loss，仍可參與 HDR supervision。
+- 擴充模型與 trainer 的 `target_ev_mask`，並讓 trainer 支援外部 scene split CSV、dataset 名稱、JPEG inference 圖片。標註器也新增 `--dataset-name`，可直接人工覆核 SI-HDR contact sheets。
+- 完成 `sihdr-reference-candidate` 1,200-epoch 獨立訓練：test EV MAE 0.9838 EV、RMSE 1.3286 EV、acceptable 16.86%；HDR operating-point test accuracy 36.36%、balanced accuracy 49.12%。結果顯示管線可運作，但 heuristic labels 與輸入 domain 尚不足以升為正式模型。
+- 自動產生 `report.html`、`test_inference_report.html` 與 `test_hdr_inference_report.html`。主報告含 1,201 個 epoch checkpoints；SDR test 頁含 255 張 supervised images，HDR test 頁含 22 個有 label 的 scene 與完整 bracket。
+- 編譯檢查與 19/19 單元測試通過。下一步是人工覆核 181 scene，再比較 SI-HDR pretraining + Scene4 fine-tuning 或 domain-aware mixed training；Version 0 未被覆蓋。
+- 清除既有 `sihdr_trial`、舊版 usable/candidate draft 與重複 feature cache；候選 builder 改用系統暫存目錄，之後不再保留試跑或中間 draft 產物。
+
+### 2026-09-28｜SI-HDR SDR 181/181 人工確認與正式 Version 0
+
+- 稽核 `labels/sihdr_draft/scene_annotations.csv`：SDR `human_review` 為 181/181、缺欄 0、重複 scene 0；HDR `hdr_reviewed` 仍為 0/181。
+- Builder 新增保護：未設定 `hdr_reviewed=1` 的 HDR heuristic 會在 training labels 中清空並 mask；新增回歸測試，完整測試更新為 20/20 通過。
+- 人工覆核將 EV shutter-boundary scenes 從 64 降為 20；正式 EV supervision 為 161 scenes／2,415 samples，train／validation／test 分別有 113／24／24 個 EV-supervised scenes。
+- 建立 `labels/sihdr_generated_sdr_v0/`，所有 2,715 samples 均來自人工 SDR labels，HDR/ratio supervised samples 均為 0。
+- 使用 validation-only 暫存對照選擇 4,800 epochs；1,200／2,400／4,800 的 validation loss 為 2.7329／2.4695／2.2372。暫存對照已全部刪除。
+- 完成 `sihdr-sdr-v0` 正式訓練：test MAE 1.3405 EV、RMSE 1.5883 EV、acceptable interval 41.67%；training／validation loss 最終為 1.6915／2.2372，未見 overfit 回升。
+- 正式輸出位於 `outputs/sihdr_training_sdr_v0/`，包含 model、validation checkpoint、loss CSV、主 HTML 與 SDR test 圖片 HTML。因 HDR 尚未人工覆核，沒有建立誤導性的正式 HDR test 報告。
+
+### 2026-09-28｜SI-HDR HDR 181/181 人工確認與候選訓練
+
+- HDR 人工覆核完成 181/181：On 101、Off 27、Unknown 53；benefit/enable 不一致 0。Ratio 與 anchor 全部保持空白。
+- 建立 `labels/sihdr_generated_hdr_v0_candidate/`；scene-level stratified split 為 127/27/27，train／validation／test 都包含 On、Off 與 Unknown，無 scene leakage。
+- 明確 HDR supervision 為 128 scenes／1,920 samples；53 個 Unknown scenes mask HDR loss，ratio supervision 為 0。
+- 使用 validation-only 暫存對照選擇 9,600 epochs；1,200／2,400／4,800／9,600 的 validation loss 為 3.3244／3.0495／2.7148／2.5165，最佳 checkpoint 在 epoch 9,598。全部暫存對照已刪除。
+- 完成 `sihdr-hdr-v0-candidate`：validation 選出的 operating threshold 為 0.600821；test 19 scenes 的 accuracy 94.74%、balanced accuracy 87.50%、F1 96.77%，confusion matrix 為 TP 15／TN 3／FP 1／FN 0。
+- 任意 test bracket frame 的 accuracy 為 73.33%、balanced accuracy 73.94%，仍顯示曝光 domain sensitivity；此模型只可視為 AE 接近 target 時的 static HDR enable candidate。
+- 同步輸出主 loss report、360 張 SDR test 圖片頁，以及 19 個 labeled HDR test scenes 的完整 bracket 圖片頁。完整測試維持 20/20 通過。

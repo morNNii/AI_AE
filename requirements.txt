@@ -1,1 +1,7 @@
-numpy>=2.0,<3
+numpy>=1.26,<3
+Pillow>=10,<13
+tifffile>=2024.1
+imagecodecs>=2024.1
+rawpy==0.27.1
+ExifRead==3.5.1
+OpenEXR==3.5.1

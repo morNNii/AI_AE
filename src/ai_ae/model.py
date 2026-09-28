@@ -39,9 +39,66 @@ class MultiHeadMLP:
             "confidence": sigmoid(h @ self.params["w_conf"] + self.params["b_conf"]).ravel(),
         }
 
-    def train(self, x: np.ndarray, target_ev: np.ndarray, hdr: np.ndarray,
-              ratio_index: np.ndarray, confidence: np.ndarray, epochs: int, lr: float) -> list[float]:
+    def loss_components(self, x: np.ndarray, target_ev: np.ndarray,
+                        hdr: np.ndarray, ratio_index: np.ndarray,
+                        confidence: np.ndarray,
+                        ev_mask: np.ndarray | None = None,
+                        hdr_mask: np.ndarray | None = None,
+                        ratio_mask: np.ndarray | None = None,
+                        confidence_mask: np.ndarray | None = None) -> dict[str, float]:
+        """Return the same full-batch objective components used by ``train``."""
         n = x.shape[0]
+        ev_mask = np.ones(n, np.float32) if ev_mask is None else ev_mask.astype(np.float32)
+        hdr_mask = np.ones(n, np.float32) if hdr_mask is None else hdr_mask.astype(np.float32)
+        ratio_mask = (np.ones(n, np.float32) if ratio_mask is None
+                      else ratio_mask.astype(np.float32))
+        confidence_mask = (np.ones(n, np.float32) if confidence_mask is None
+                           else confidence_mask.astype(np.float32))
+        prediction = self.predict(x)
+        eps = 1e-7
+        ev_error = (prediction["target_ev"] - target_ev) ** 2
+        ev_mse = float((ev_error * ev_mask).sum() / max(float(ev_mask.sum()), 1.0))
+        hdr_loss = -(hdr * np.log(prediction["hdr_benefit"] + eps) +
+                     (1 - hdr) * np.log(1 - prediction["hdr_benefit"] + eps))
+        ratio_loss = -np.log(
+            prediction["ratio_prob"][np.arange(n), ratio_index] + eps
+        )
+        confidence_loss = -(confidence * np.log(prediction["confidence"] + eps) +
+                            (1 - confidence) *
+                            np.log(1 - prediction["confidence"] + eps))
+        hdr_bce = float((hdr_loss * hdr_mask).sum() / max(float(hdr_mask.sum()), 1.0))
+        ratio_ce = float(
+            (ratio_loss * ratio_mask).sum() / max(float(ratio_mask.sum()), 1.0)
+        )
+        confidence_bce = float(
+            (confidence_loss * confidence_mask).sum() /
+            max(float(confidence_mask.sum()), 1.0)
+        )
+        return {
+            "total": ev_mse + 0.2 * hdr_bce + 0.2 * ratio_ce + 0.1 * confidence_bce,
+            "ev_mse": ev_mse,
+            "hdr_bce": hdr_bce,
+            "ratio_ce": ratio_ce,
+            "confidence_bce": confidence_bce,
+        }
+
+    def train(self, x: np.ndarray, target_ev: np.ndarray, hdr: np.ndarray,
+              ratio_index: np.ndarray, confidence: np.ndarray, epochs: int, lr: float,
+              ev_mask: np.ndarray | None = None,
+              hdr_mask: np.ndarray | None = None,
+              ratio_mask: np.ndarray | None = None,
+              confidence_mask: np.ndarray | None = None) -> list[float]:
+        n = x.shape[0]
+        ev_mask = np.ones(n, np.float32) if ev_mask is None else ev_mask.astype(np.float32)
+        hdr_mask = np.ones(n, np.float32) if hdr_mask is None else hdr_mask.astype(np.float32)
+        ratio_mask = (np.ones(n, np.float32) if ratio_mask is None
+                      else ratio_mask.astype(np.float32))
+        confidence_mask = (np.ones(n, np.float32) if confidence_mask is None
+                           else confidence_mask.astype(np.float32))
+        ev_denominator = max(float(ev_mask.sum()), 1.0)
+        hdr_denominator = max(float(hdr_mask.sum()), 1.0)
+        ratio_denominator = max(float(ratio_mask.sum()), 1.0)
+        confidence_denominator = max(float(confidence_mask.sum()), 1.0)
         history = []
         for _ in range(epochs):
             z = x @ self.params["w1"] + self.params["b1"]
@@ -54,16 +111,30 @@ class MultiHeadMLP:
             ratio_p /= ratio_p.sum(axis=1, keepdims=True)
             one_hot = np.zeros_like(ratio_p); one_hot[np.arange(n), ratio_index] = 1.0
             eps = 1e-7
-            loss = np.mean((ev - target_ev) ** 2)
-            loss += 0.2 * -np.mean(hdr * np.log(hdr_p + eps) + (1 - hdr) * np.log(1 - hdr_p + eps))
-            loss += 0.2 * -np.mean(np.log(ratio_p[np.arange(n), ratio_index] + eps))
-            loss += 0.1 * -np.mean(confidence * np.log(conf_p + eps) + (1 - confidence) * np.log(1 - conf_p + eps))
+            loss = float((((ev - target_ev) ** 2) * ev_mask).sum() / ev_denominator)
+            hdr_loss = -(hdr * np.log(hdr_p + eps) +
+                         (1 - hdr) * np.log(1 - hdr_p + eps))
+            ratio_loss = -np.log(ratio_p[np.arange(n), ratio_index] + eps)
+            confidence_loss = -(confidence * np.log(conf_p + eps) +
+                                (1 - confidence) * np.log(1 - conf_p + eps))
+            loss += 0.2 * float((hdr_loss * hdr_mask).sum() / hdr_denominator)
+            loss += 0.2 * float((ratio_loss * ratio_mask).sum() / ratio_denominator)
+            loss += 0.1 * float((confidence_loss * confidence_mask).sum() /
+                                confidence_denominator)
             history.append(float(loss))
 
-            d_ev = (2.0 / n) * (ev - target_ev)[:, None]
-            d_hdr = (0.2 / n) * (hdr_p - hdr)[:, None]
-            d_ratio = (0.2 / n) * (ratio_p - one_hot)
-            d_conf = (0.1 / n) * (conf_p - confidence)[:, None]
+            d_ev = (2.0 / ev_denominator) * (
+                (ev - target_ev) * ev_mask
+            )[:, None]
+            d_hdr = (0.2 / hdr_denominator) * (
+                (hdr_p - hdr) * hdr_mask
+            )[:, None]
+            d_ratio = (0.2 / ratio_denominator) * (
+                (ratio_p - one_hot) * ratio_mask[:, None]
+            )
+            d_conf = (0.1 / confidence_denominator) * (
+                (conf_p - confidence) * confidence_mask
+            )[:, None]
             dh = (d_ev @ self.params["w_ev"].T + d_hdr @ self.params["w_hdr"].T +
                   d_ratio @ self.params["w_ratio"].T + d_conf @ self.params["w_conf"].T)
             grads = {

@@ -7,3 +7,13 @@ __pycache__/
 venv/
 *.log
 input/
+
+# 正式 outputs 納入版本控制，但不提交圖檔；HTML 報告本身保留。
+outputs/**/*.[jJ][pP][gG]
+outputs/**/*.[jJ][pP][eE][gG]
+outputs/**/*.[pP][nN][gG]
+outputs/**/*.[wW][eE][bB][pP]
+outputs/**/*.[bB][mM][pP]
+outputs/**/*.[gG][iI][fF]
+outputs/**/*.[tT][iI][fF]
+outputs/**/*.[tT][iI][fF][fF]

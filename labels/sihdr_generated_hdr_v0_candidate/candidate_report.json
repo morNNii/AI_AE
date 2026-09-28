@@ -1,0 +1,37 @@
+{
+  "status": "HUMAN_SDR_HDR_READY",
+  "source_scene_count": 181,
+  "included_scene_count": 181,
+  "sdr_human_reviewed_scene_count": 181,
+  "hdr_human_reviewed_scene_count": 181,
+  "ev_supervised_scene_count": 161,
+  "ev_masked_boundary_scene_count": 20,
+  "hdr_retained_boundary_scene_count": 20,
+  "training_sample_count": 2715,
+  "split_scene_counts": {
+    "test": 27,
+    "train": 127,
+    "validation": 27
+  },
+  "split_hdr_counts": {
+    "test": {
+      "on": 15,
+      "off": 4,
+      "unknown": 8
+    },
+    "train": {
+      "off": 19,
+      "on": 71,
+      "unknown": 37
+    },
+    "validation": {
+      "on": 15,
+      "unknown": 8,
+      "off": 4
+    }
+  },
+  "features": "outputs\\sihdr_prepared\\features.npz",
+  "labels": "labels\\sihdr_generated_hdr_v0_candidate\\training_samples.csv",
+  "split_assignments": "labels\\sihdr_generated_hdr_v0_candidate\\split_assignments.csv",
+  "warning": "All SDR and HDR-benefit labels are human-reviewed. Ambiguous HDR decisions and unlabeled ratios remain masked from loss."
+}

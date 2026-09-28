@@ -1,0 +1,80 @@
+{
+  "status": "PASS",
+  "version": "0",
+  "input_domain": "DNG embedded preview series 2",
+  "sample_count": 1500,
+  "time_step_count": 100,
+  "feature_dim": 101,
+  "epochs": 1200,
+  "split": {
+    "train": "t000-t069",
+    "validation": "t070-t084",
+    "test": "t085-t099"
+  },
+  "data_manifests": {
+    "train": {
+      "path": "labels\\scene4_generated\\splits\\train.csv",
+      "sample_count": 1050,
+      "time_step_count": 70,
+      "time_index_min": 0,
+      "time_index_max": 69
+    },
+    "validation": {
+      "path": "labels\\scene4_generated\\splits\\validation.csv",
+      "sample_count": 225,
+      "time_step_count": 15,
+      "time_index_min": 70,
+      "time_index_max": 84
+    },
+    "test": {
+      "path": "labels\\scene4_generated\\splits\\test.csv",
+      "sample_count": 225,
+      "time_step_count": 15,
+      "time_index_min": 85,
+      "time_index_max": 99
+    }
+  },
+  "loss_definition": "EV MSE + 0.2 * masked HDR BCE + 0.2 * masked ratio CE + 0.1 * confidence BCE",
+  "loss_history_csv": "outputs\\scene4_training\\loss_history.csv",
+  "best_validation_checkpoint": "outputs\\scene4_training\\model_best_validation.npz",
+  "initial_loss": 171.8433594621931,
+  "final_loss": 0.22202888819717226,
+  "initial_validation_loss": 183.99937143961589,
+  "final_validation_loss": 0.35892277275191414,
+  "overfit_assessment": {
+    "status": "still_improving",
+    "best_validation_epoch": 1200,
+    "best_validation_loss": 0.35892277275191414,
+    "final_validation_loss": 0.35892277275191414,
+    "final_train_loss": 0.22202888819717226,
+    "final_generalization_gap": 0.13689388455474188,
+    "final_vs_best_validation_percent": 0.0,
+    "last_10_percent_validation_change_percent": -2.357840609228671,
+    "recommendation": "Validation loss 在訓練末段仍持續下降；可另開實驗小幅增加 epochs，但必須保留 validation 監控與最佳 checkpoint。"
+  },
+  "metrics": {
+    "train": {
+      "sample_count": 1050,
+      "mae_ev": 0.2637538015842438,
+      "rmse_ev": 0.41346797347068787,
+      "within_acceptable_interval": 0.9971428571428571,
+      "mean_interval_error_ev": 0.000793296261690557
+    },
+    "validation": {
+      "sample_count": 225,
+      "mae_ev": 0.36880138516426086,
+      "rmse_ev": 0.5544556975364685,
+      "within_acceptable_interval": 0.9911111111111112,
+      "mean_interval_error_ev": 0.0009606085950508714
+    },
+    "test": {
+      "sample_count": 225,
+      "mae_ev": 0.485765665769577,
+      "rmse_ev": 0.623842716217041,
+      "within_acceptable_interval": 0.96,
+      "mean_interval_error_ev": 0.007932777516543865
+    }
+  },
+  "hdr_supervised_samples": 0,
+  "hdr_note": "Scene4 contains SDR exposure stacks; HDR losses are masked."
+}

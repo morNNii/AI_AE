@@ -1,0 +1,26 @@
+{
+  "status": "READY_FOR_SECOND_HUMAN_REVIEW",
+  "source_annotations": "labels\\scene4_draft\\scene_annotations.csv",
+  "review_annotations": "labels\\scene4_metric_review\\scene_annotations.csv",
+  "frame_metrics": "labels\\scene4_metric_review\\frame_metrics.csv",
+  "metric_suggestions": "labels\\scene4_metric_review\\metric_suggestions.csv",
+  "time_step_count": 100,
+  "frame_count": 1500,
+  "already_reviewed": 0,
+  "exact_preferred_match_count": 35,
+  "metric_brighter_than_original_count": 0,
+  "metric_darker_than_original_count": 65,
+  "mean_absolute_index_delta": 2.42,
+  "preferred_index_delta_distribution": {
+    "0": 35,
+    "3": 18,
+    "4": 47
+  },
+  "metric_definition": {
+    "entropy": "normalized Shannon entropy of preview luminance (0..1)",
+    "saturated_ratio": "fraction of pixels with any RGB channel >= 250",
+    "dark_ratio": "fraction of pixels with preview luminance <= 0.03",
+    "quality_score": "entropy - 2 * saturated_ratio - 1 * dark_ratio"
+  },
+  "note": "Metric suggestions are review aids, not ground truth. Existing Version 0 human labels are preserved in original_scene_annotations.csv."
+}

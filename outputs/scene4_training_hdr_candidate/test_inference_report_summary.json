@@ -1,0 +1,162 @@
+{
+  "status": "PASS",
+  "version": "0-hdr-candidate",
+  "split": "test",
+  "sample_count": 225,
+  "time_step_count": 15,
+  "mae_ev": 0.4856050533718533,
+  "median_absolute_error_ev": 0.39339542388916016,
+  "p90_absolute_error_ev": 1.0180837631225585,
+  "max_absolute_error_ev": 1.5583086013793945,
+  "outside_acceptable_count": 9,
+  "within_acceptable_percent": 96.0,
+  "worst_sample": {
+    "scene_id": "Scene4_t086",
+    "filename": "1P0A3305.dng",
+    "time_index": 86,
+    "exposure_index": 9,
+    "target_ev": 14.287712097167969,
+    "predicted_target_ev": 15.846020698547363,
+    "absolute_error_ev": 1.5583086013793945,
+    "acceptable_min_ev": 12.287712097167969,
+    "acceptable_max_ev": 15.872674942016602
+  },
+  "report_html": "outputs\\scene4_training_hdr_candidate\\test_inference_report.html",
+  "time_steps": [
+    {
+      "scene_id": "Scene4_t086",
+      "time_index": 86,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 0.49693533579508464,
+      "max_absolute_error_ev": 1.5583086013793945,
+      "outside_acceptable_count": 0,
+      "worst_filename": "1P0A3305.dng"
+    },
+    {
+      "scene_id": "Scene4_t087",
+      "time_index": 87,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 0.4932299296061198,
+      "max_absolute_error_ev": 1.510117530822754,
+      "outside_acceptable_count": 0,
+      "worst_filename": "1P0A3320.dng"
+    },
+    {
+      "scene_id": "Scene4_t088",
+      "time_index": 88,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 0.49214064280192055,
+      "max_absolute_error_ev": 1.5020513534545898,
+      "outside_acceptable_count": 0,
+      "worst_filename": "1P0A3335.dng"
+    },
+    {
+      "scene_id": "Scene4_t089",
+      "time_index": 89,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 0.4934496561686198,
+      "max_absolute_error_ev": 1.5004453659057617,
+      "outside_acceptable_count": 0,
+      "worst_filename": "1P0A3350.dng"
+    },
+    {
+      "scene_id": "Scene4_t085",
+      "time_index": 85,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 0.49093958536783855,
+      "max_absolute_error_ev": 1.4931678771972656,
+      "outside_acceptable_count": 0,
+      "worst_filename": "1P0A3290.dng"
+    },
+    {
+      "scene_id": "Scene4_t096",
+      "time_index": 96,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 0.6604877471923828,
+      "max_absolute_error_ev": 1.253758430480957,
+      "outside_acceptable_count": 2,
+      "worst_filename": "1P0A3446.dng"
+    },
+    {
+      "scene_id": "Scene4_t095",
+      "time_index": 95,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 0.608356221516927,
+      "max_absolute_error_ev": 1.2493877410888672,
+      "outside_acceptable_count": 2,
+      "worst_filename": "1P0A3431.dng"
+    },
+    {
+      "scene_id": "Scene4_t094",
+      "time_index": 94,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 0.5738689422607421,
+      "max_absolute_error_ev": 1.247218132019043,
+      "outside_acceptable_count": 1,
+      "worst_filename": "1P0A3416.dng"
+    },
+    {
+      "scene_id": "Scene4_t093",
+      "time_index": 93,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 0.5236835479736328,
+      "max_absolute_error_ev": 1.2471685409545898,
+      "outside_acceptable_count": 1,
+      "worst_filename": "1P0A3401.dng"
+    },
+    {
+      "scene_id": "Scene4_t092",
+      "time_index": 92,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 0.5327091217041016,
+      "max_absolute_error_ev": 1.2464189529418945,
+      "outside_acceptable_count": 1,
+      "worst_filename": "1P0A3386.dng"
+    },
+    {
+      "scene_id": "Scene4_t091",
+      "time_index": 91,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 0.511777114868164,
+      "max_absolute_error_ev": 1.245100975036621,
+      "outside_acceptable_count": 1,
+      "worst_filename": "1P0A3371.dng"
+    },
+    {
+      "scene_id": "Scene4_t090",
+      "time_index": 90,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 0.4384258270263672,
+      "max_absolute_error_ev": 1.2381658554077148,
+      "outside_acceptable_count": 1,
+      "worst_filename": "1P0A3356.dng"
+    },
+    {
+      "scene_id": "Scene4_t098",
+      "time_index": 98,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 0.32595481872558596,
+      "max_absolute_error_ev": 0.8830690383911133,
+      "outside_acceptable_count": 0,
+      "worst_filename": "1P0A3490.dng"
+    },
+    {
+      "scene_id": "Scene4_t097",
+      "time_index": 97,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 0.33084061940511067,
+      "max_absolute_error_ev": 0.8085155487060547,
+      "outside_acceptable_count": 0,
+      "worst_filename": "1P0A3475.dng"
+    },
+    {
+      "scene_id": "Scene4_t099",
+      "time_index": 99,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 0.3112766901652018,
+      "max_absolute_error_ev": 0.7209348678588867,
+      "outside_acceptable_count": 0,
+      "worst_filename": "1P0A3500.dng"
+    }
+  ]
+}

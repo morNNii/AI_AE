@@ -1,5 +1,6 @@
 from pathlib import Path
 import sys
+import tempfile
 import unittest
 
 import numpy as np
@@ -13,8 +14,14 @@ from ai_ae.io import calculate_log_exposure, load_camera_status, load_scene_labe
 
 class CoreTest(unittest.TestCase):
     def test_pgm(self):
-        image, meta = read_pgm(ROOT / "input/pattern_1/00000020_bayer.pgm")
-        self.assertEqual(image.shape, (1080, 1920))
+        with tempfile.TemporaryDirectory() as temp:
+            pgm = Path(temp) / "fixture.pgm"
+            pixels = np.array([[0, 1], [1022, 1023]], dtype=">u2")
+            with pgm.open("wb") as f:
+                f.write(b"P5\n# SAMPLE_MODE=BAYER_B\n2 2\n1023\n")
+                f.write(pixels.tobytes())
+            image, meta = read_pgm(pgm)
+        self.assertEqual(image.shape, (2, 2))
         self.assertEqual(meta["max_value"], "1023")
         self.assertEqual(meta["SAMPLE_MODE"], "BAYER_B")
 

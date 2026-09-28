@@ -1,0 +1,166 @@
+{
+  "status": "PASS",
+  "version": "sihdr-sdr-v0",
+  "dataset": "SI-HDR",
+  "input_domain": "SI-HDR EXR radiance calibrated to Canon CR2; simulated ISO100 f/14 luma",
+  "sample_count": 2715,
+  "time_step_count": 181,
+  "feature_dim": 101,
+  "epochs": 4800,
+  "split": {
+    "train": "scene-level stratified assignment",
+    "validation": "scene-level stratified assignment",
+    "test": "scene-level stratified assignment"
+  },
+  "data_manifests": {
+    "train": {
+      "path": "labels\\sihdr_generated_sdr_v0\\splits\\train.csv",
+      "sample_count": 1905,
+      "time_step_count": 127,
+      "time_index_min": 0,
+      "time_index_max": 180
+    },
+    "validation": {
+      "path": "labels\\sihdr_generated_sdr_v0\\splits\\validation.csv",
+      "sample_count": 405,
+      "time_step_count": 27,
+      "time_index_min": 3,
+      "time_index_max": 179
+    },
+    "test": {
+      "path": "labels\\sihdr_generated_sdr_v0\\splits\\test.csv",
+      "sample_count": 405,
+      "time_step_count": 27,
+      "time_index_min": 5,
+      "time_index_max": 171
+    }
+  },
+  "loss_definition": "masked EV MSE + 0.2 * masked HDR BCE + 0.2 * masked ratio CE + 0.1 * confidence BCE",
+  "loss_history_csv": "outputs\\sihdr_training_sdr_v0\\loss_history.csv",
+  "best_validation_checkpoint": "outputs\\sihdr_training_sdr_v0\\model_best_validation.npz",
+  "initial_loss": 146.31812369256352,
+  "final_loss": 1.6915431525373703,
+  "initial_validation_loss": 140.47237563898534,
+  "final_validation_loss": 2.2372033276970003,
+  "overfit_assessment": {
+    "status": "plateau_or_no_clear_overfit",
+    "best_validation_epoch": 4800,
+    "best_validation_loss": 2.2372033276970003,
+    "final_validation_loss": 2.2372033276970003,
+    "final_train_loss": 1.6915431525373703,
+    "final_generalization_gap": 0.54566017515963,
+    "final_vs_best_validation_percent": 0.0,
+    "last_10_percent_validation_change_percent": -0.8892809140373712,
+    "recommendation": "Validation loss 已接近平臺且沒有明顯惡化；不建議只靠增加 epochs。優先增加更多 Scene、改善特徵或調整模型容量。"
+  },
+  "metrics": {
+    "train": {
+      "sample_count": 1695,
+      "mae_ev": 0.9759490489959717,
+      "rmse_ev": 1.2738374471664429,
+      "within_acceptable_interval": 0.5646017699115045,
+      "mean_interval_error_ev": 0.3979976773262024
+    },
+    "validation": {
+      "sample_count": 360,
+      "mae_ev": 1.1290569305419922,
+      "rmse_ev": 1.472514271736145,
+      "within_acceptable_interval": 0.5083333333333333,
+      "mean_interval_error_ev": 0.4575478434562683
+    },
+    "test": {
+      "sample_count": 360,
+      "mae_ev": 1.340458631515503,
+      "rmse_ev": 1.5882805585861206,
+      "within_acceptable_interval": 0.4166666666666667,
+      "mean_interval_error_ev": 0.5902973413467407
+    }
+  },
+  "hdr_metrics": {
+    "default_threshold": 0.5,
+    "validation_selected_threshold": 0.5,
+    "threshold_selection": {
+      "split": "validation",
+      "aggregation": "one frame per time step nearest the SDR target EV",
+      "objective": "balanced_accuracy",
+      "threshold": 0.5,
+      "balanced_accuracy": 0.5
+    },
+    "operating_point": {
+      "definition": "one frame per time step nearest the SDR target EV",
+      "metrics": {
+        "train": {
+          "sample_count": 0
+        },
+        "validation": {
+          "sample_count": 0
+        },
+        "test": {
+          "sample_count": 0
+        }
+      },
+      "predictions_csv": "outputs\\sihdr_training_sdr_v0\\hdr_predictions_at_target_ev.csv"
+    },
+    "all_samples_at_operating_threshold": {
+      "train": {
+        "sample_count": 0
+      },
+      "validation": {
+        "sample_count": 0
+      },
+      "test": {
+        "sample_count": 0
+      }
+    },
+    "time_step_mean_diagnostic": {
+      "validation_selected_threshold": 0.5,
+      "threshold_selection": {
+        "threshold": 0.5,
+        "balanced_accuracy": 0.5
+      },
+      "metrics": {
+        "train": {
+          "sample_count": 0
+        },
+        "validation": {
+          "sample_count": 0
+        },
+        "test": {
+          "sample_count": 0
+        }
+      },
+      "predictions_csv": "outputs\\sihdr_training_sdr_v0\\hdr_predictions_by_time_step.csv"
+    },
+    "samples_at_0_5": {
+      "train": {
+        "sample_count": 0
+      },
+      "validation": {
+        "sample_count": 0
+      },
+      "test": {
+        "sample_count": 0
+      }
+    },
+    "time_steps_at_0_5": {
+      "train": {
+        "sample_count": 0
+      },
+      "validation": {
+        "sample_count": 0
+      },
+      "test": {
+        "sample_count": 0
+      }
+    }
+  },
+  "hdr_supervised_samples": 0,
+  "hdr_supervised_time_steps": 0,
+  "ev_supervised_samples": 2415,
+  "ev_supervised_time_steps": 161,
+  "hdr_note": "HDR enable labels describe benefit if static. Ratio loss remains masked when no ratio labels are provided.",
+  "image_reports": {
+    "sdr_test_image_report": "outputs\\sihdr_training_sdr_v0\\test_inference_report.html",
+    "sdr_test_image_summary": "outputs\\sihdr_training_sdr_v0\\test_inference_report_summary.json"
+  }
+}

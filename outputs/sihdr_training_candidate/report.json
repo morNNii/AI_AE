@@ -1,0 +1,378 @@
+{
+  "status": "PASS",
+  "version": "sihdr-reference-candidate",
+  "dataset": "SI-HDR",
+  "input_domain": "SI-HDR EXR radiance calibrated to Canon CR2; simulated ISO100 f/14 luma",
+  "sample_count": 2715,
+  "time_step_count": 181,
+  "feature_dim": 101,
+  "epochs": 1200,
+  "split": {
+    "train": "scene-level stratified assignment",
+    "validation": "scene-level stratified assignment",
+    "test": "scene-level stratified assignment"
+  },
+  "data_manifests": {
+    "train": {
+      "path": "labels\\sihdr_generated_candidate\\splits\\train.csv",
+      "sample_count": 1905,
+      "time_step_count": 127,
+      "time_index_min": 0,
+      "time_index_max": 180
+    },
+    "validation": {
+      "path": "labels\\sihdr_generated_candidate\\splits\\validation.csv",
+      "sample_count": 405,
+      "time_step_count": 27,
+      "time_index_min": 2,
+      "time_index_max": 170
+    },
+    "test": {
+      "path": "labels\\sihdr_generated_candidate\\splits\\test.csv",
+      "sample_count": 405,
+      "time_step_count": 27,
+      "time_index_min": 3,
+      "time_index_max": 179
+    }
+  },
+  "loss_definition": "masked EV MSE + 0.2 * masked HDR BCE + 0.2 * masked ratio CE + 0.1 * confidence BCE",
+  "loss_history_csv": "outputs\\sihdr_training_candidate\\loss_history.csv",
+  "best_validation_checkpoint": "outputs\\sihdr_training_candidate\\model_best_validation.npz",
+  "initial_loss": 99.45515064973767,
+  "final_loss": 1.5797242406009444,
+  "initial_validation_loss": 111.66276384040972,
+  "final_validation_loss": 2.2201500195746076,
+  "overfit_assessment": {
+    "status": "plateau_or_no_clear_overfit",
+    "best_validation_epoch": 1200,
+    "best_validation_loss": 2.2201500195746076,
+    "final_validation_loss": 2.2201500195746076,
+    "final_train_loss": 1.5797242406009444,
+    "final_generalization_gap": 0.6404257789736632,
+    "final_vs_best_validation_percent": 0.0,
+    "last_10_percent_validation_change_percent": -0.9096583305845821,
+    "recommendation": "Validation loss 已接近平臺且沒有明顯惡化；不建議只靠增加 epochs。優先增加更多 Scene、改善特徵或調整模型容量。"
+  },
+  "metrics": {
+    "train": {
+      "sample_count": 1245,
+      "mae_ev": 0.9093189239501953,
+      "rmse_ev": 1.1958668231964111,
+      "within_acceptable_interval": 0.25943775100401606,
+      "mean_interval_error_ev": 0.5945779085159302
+    },
+    "validation": {
+      "sample_count": 255,
+      "mae_ev": 1.1314523220062256,
+      "rmse_ev": 1.440435528755188,
+      "within_acceptable_interval": 0.1803921568627451,
+      "mean_interval_error_ev": 0.6978965401649475
+    },
+    "test": {
+      "sample_count": 255,
+      "mae_ev": 0.9837848544120789,
+      "rmse_ev": 1.3285737037658691,
+      "within_acceptable_interval": 0.16862745098039217,
+      "mean_interval_error_ev": 0.6543575525283813
+    }
+  },
+  "hdr_metrics": {
+    "default_threshold": 0.5,
+    "validation_selected_threshold": 0.8421850800514221,
+    "threshold_selection": {
+      "split": "validation",
+      "aggregation": "one frame per time step nearest the SDR target EV",
+      "objective": "balanced_accuracy",
+      "threshold": 0.8421850800514221,
+      "balanced_accuracy": 0.631578947368421
+    },
+    "operating_point": {
+      "definition": "one frame per time step nearest the SDR target EV",
+      "metrics": {
+        "train": {
+          "sample_count": 101,
+          "positive_count": 86,
+          "negative_count": 15,
+          "bce": 0.428893850729017,
+          "threshold": 0.8421850800514221,
+          "accuracy": 0.37623762376237624,
+          "precision": 1.0,
+          "recall": 0.26744186046511625,
+          "specificity": 1.0,
+          "balanced_accuracy": 0.6337209302325582,
+          "f1": 0.4220183486238532,
+          "true_positive": 23,
+          "true_negative": 15,
+          "false_positive": 0,
+          "false_negative": 63
+        },
+        "validation": {
+          "sample_count": 22,
+          "positive_count": 19,
+          "negative_count": 3,
+          "bce": 0.4209999736737121,
+          "threshold": 0.8421850800514221,
+          "accuracy": 0.36363636363636365,
+          "precision": 1.0,
+          "recall": 0.2631578947368421,
+          "specificity": 1.0,
+          "balanced_accuracy": 0.631578947368421,
+          "f1": 0.4166666666666667,
+          "true_positive": 5,
+          "true_negative": 3,
+          "false_positive": 0,
+          "false_negative": 14
+        },
+        "test": {
+          "sample_count": 22,
+          "positive_count": 19,
+          "negative_count": 3,
+          "bce": 0.4240914244543422,
+          "threshold": 0.8421850800514221,
+          "accuracy": 0.36363636363636365,
+          "precision": 0.8571428571428571,
+          "recall": 0.3157894736842105,
+          "specificity": 0.6666666666666666,
+          "balanced_accuracy": 0.49122807017543857,
+          "f1": 0.46153846153846156,
+          "true_positive": 6,
+          "true_negative": 2,
+          "false_positive": 1,
+          "false_negative": 13
+        }
+      },
+      "predictions_csv": "outputs\\sihdr_training_candidate\\hdr_predictions_at_target_ev.csv"
+    },
+    "all_samples_at_operating_threshold": {
+      "train": {
+        "sample_count": 1515,
+        "positive_count": 1290,
+        "negative_count": 225,
+        "bce": 0.4034484512046619,
+        "threshold": 0.8421850800514221,
+        "accuracy": 0.5003300330033004,
+        "precision": 0.9700176366843033,
+        "recall": 0.4263565891472868,
+        "specificity": 0.9244444444444444,
+        "balanced_accuracy": 0.6754005167958657,
+        "f1": 0.5923532579429187,
+        "true_positive": 550,
+        "true_negative": 208,
+        "false_positive": 17,
+        "false_negative": 740
+      },
+      "validation": {
+        "sample_count": 330,
+        "positive_count": 285,
+        "negative_count": 45,
+        "bce": 0.3820473091168837,
+        "threshold": 0.8421850800514221,
+        "accuracy": 0.47575757575757577,
+        "precision": 1.0,
+        "recall": 0.3929824561403509,
+        "specificity": 1.0,
+        "balanced_accuracy": 0.6964912280701754,
+        "f1": 0.5642317380352645,
+        "true_positive": 112,
+        "true_negative": 45,
+        "false_positive": 0,
+        "false_negative": 173
+      },
+      "test": {
+        "sample_count": 330,
+        "positive_count": 285,
+        "negative_count": 45,
+        "bce": 0.38195588940923864,
+        "threshold": 0.8421850800514221,
+        "accuracy": 0.4909090909090909,
+        "precision": 0.9915966386554622,
+        "recall": 0.41403508771929826,
+        "specificity": 0.9777777777777777,
+        "balanced_accuracy": 0.695906432748538,
+        "f1": 0.5841584158415842,
+        "true_positive": 118,
+        "true_negative": 44,
+        "false_positive": 1,
+        "false_negative": 167
+      }
+    },
+    "time_step_mean_diagnostic": {
+      "validation_selected_threshold": 0.7741601169109344,
+      "threshold_selection": {
+        "threshold": 0.7741601169109344,
+        "balanced_accuracy": 0.9736842105263157
+      },
+      "metrics": {
+        "train": {
+          "sample_count": 101,
+          "positive_count": 86,
+          "negative_count": 15,
+          "bce": 0.39485522057160294,
+          "threshold": 0.7741601169109344,
+          "accuracy": 0.9207920792079208,
+          "precision": 0.975609756097561,
+          "recall": 0.9302325581395349,
+          "specificity": 0.8666666666666667,
+          "balanced_accuracy": 0.8984496124031007,
+          "f1": 0.9523809523809524,
+          "true_positive": 80,
+          "true_negative": 13,
+          "false_positive": 2,
+          "false_negative": 6
+        },
+        "validation": {
+          "sample_count": 22,
+          "positive_count": 19,
+          "negative_count": 3,
+          "bce": 0.3761685727672143,
+          "threshold": 0.7741601169109344,
+          "accuracy": 0.9545454545454546,
+          "precision": 1.0,
+          "recall": 0.9473684210526315,
+          "specificity": 1.0,
+          "balanced_accuracy": 0.9736842105263157,
+          "f1": 0.972972972972973,
+          "true_positive": 18,
+          "true_negative": 3,
+          "false_positive": 0,
+          "false_negative": 1
+        },
+        "test": {
+          "sample_count": 22,
+          "positive_count": 19,
+          "negative_count": 3,
+          "bce": 0.37582524053075095,
+          "threshold": 0.7741601169109344,
+          "accuracy": 0.9090909090909091,
+          "precision": 0.9473684210526315,
+          "recall": 0.9473684210526315,
+          "specificity": 0.6666666666666666,
+          "balanced_accuracy": 0.8070175438596491,
+          "f1": 0.9473684210526315,
+          "true_positive": 18,
+          "true_negative": 2,
+          "false_positive": 1,
+          "false_negative": 1
+        }
+      },
+      "predictions_csv": "outputs\\sihdr_training_candidate\\hdr_predictions_by_time_step.csv"
+    },
+    "samples_at_0_5": {
+      "train": {
+        "sample_count": 1515,
+        "positive_count": 1290,
+        "negative_count": 225,
+        "bce": 0.4034484512046619,
+        "threshold": 0.5,
+        "accuracy": 0.8514851485148515,
+        "precision": 0.8514851485148515,
+        "recall": 1.0,
+        "specificity": 0.0,
+        "balanced_accuracy": 0.5,
+        "f1": 0.9197860962566845,
+        "true_positive": 1290,
+        "true_negative": 0,
+        "false_positive": 225,
+        "false_negative": 0
+      },
+      "validation": {
+        "sample_count": 330,
+        "positive_count": 285,
+        "negative_count": 45,
+        "bce": 0.3820473091168837,
+        "threshold": 0.5,
+        "accuracy": 0.8636363636363636,
+        "precision": 0.8636363636363636,
+        "recall": 1.0,
+        "specificity": 0.0,
+        "balanced_accuracy": 0.5,
+        "f1": 0.9268292682926829,
+        "true_positive": 285,
+        "true_negative": 0,
+        "false_positive": 45,
+        "false_negative": 0
+      },
+      "test": {
+        "sample_count": 330,
+        "positive_count": 285,
+        "negative_count": 45,
+        "bce": 0.38195588940923864,
+        "threshold": 0.5,
+        "accuracy": 0.8636363636363636,
+        "precision": 0.8636363636363636,
+        "recall": 1.0,
+        "specificity": 0.0,
+        "balanced_accuracy": 0.5,
+        "f1": 0.9268292682926829,
+        "true_positive": 285,
+        "true_negative": 0,
+        "false_positive": 45,
+        "false_negative": 0
+      }
+    },
+    "time_steps_at_0_5": {
+      "train": {
+        "sample_count": 101,
+        "positive_count": 86,
+        "negative_count": 15,
+        "bce": 0.39485522057160294,
+        "threshold": 0.5,
+        "accuracy": 0.8514851485148515,
+        "precision": 0.8514851485148515,
+        "recall": 1.0,
+        "specificity": 0.0,
+        "balanced_accuracy": 0.5,
+        "f1": 0.9197860962566845,
+        "true_positive": 86,
+        "true_negative": 0,
+        "false_positive": 15,
+        "false_negative": 0
+      },
+      "validation": {
+        "sample_count": 22,
+        "positive_count": 19,
+        "negative_count": 3,
+        "bce": 0.3761685727672143,
+        "threshold": 0.5,
+        "accuracy": 0.8636363636363636,
+        "precision": 0.8636363636363636,
+        "recall": 1.0,
+        "specificity": 0.0,
+        "balanced_accuracy": 0.5,
+        "f1": 0.9268292682926829,
+        "true_positive": 19,
+        "true_negative": 0,
+        "false_positive": 3,
+        "false_negative": 0
+      },
+      "test": {
+        "sample_count": 22,
+        "positive_count": 19,
+        "negative_count": 3,
+        "bce": 0.37582524053075095,
+        "threshold": 0.5,
+        "accuracy": 0.8636363636363636,
+        "precision": 0.8636363636363636,
+        "recall": 1.0,
+        "specificity": 0.0,
+        "balanced_accuracy": 0.5,
+        "f1": 0.9268292682926829,
+        "true_positive": 19,
+        "true_negative": 0,
+        "false_positive": 3,
+        "false_negative": 0
+      }
+    }
+  },
+  "hdr_supervised_samples": 2175,
+  "hdr_supervised_time_steps": 145,
+  "ev_supervised_samples": 1755,
+  "ev_supervised_time_steps": 117,
+  "hdr_note": "HDR enable labels describe benefit if static. Ratio loss remains masked when no ratio labels are provided.",
+  "image_reports": {
+    "sdr_test_image_report": "outputs\\sihdr_training_candidate\\test_inference_report.html",
+    "sdr_test_image_summary": "outputs\\sihdr_training_candidate\\test_inference_report_summary.json",
+    "hdr_test_image_report": "outputs\\sihdr_training_candidate\\test_hdr_inference_report.html",
+    "hdr_test_image_summary": "outputs\\sihdr_training_candidate\\test_hdr_inference_report_summary.json"
+  }
+}

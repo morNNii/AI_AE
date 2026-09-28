@@ -1,0 +1,2949 @@
+{
+  "status": "PASS",
+  "version": "sihdr-hdr-v0-candidate",
+  "dataset": "SI-HDR",
+  "split": "test",
+  "operating_point": "one frame per time step nearest the SDR target EV",
+  "time_step_count": 19,
+  "hdr_on_count": 15,
+  "hdr_off_count": 4,
+  "operating_correct_count": 18,
+  "operating_accuracy": 0.9473684210526315,
+  "true_positive": 15,
+  "true_negative": 3,
+  "false_positive": 1,
+  "false_negative": 0,
+  "all_bracket_frame_count": 285,
+  "all_bracket_wrong_count": 76,
+  "all_bracket_accuracy": 0.7333333333333333,
+  "report_html": "outputs\\sihdr_training_hdr_v0_candidate\\test_hdr_inference_report.html",
+  "note": "The images are captured SDR bracket previews used to explain the decision. They are not generated HDR merge outputs.",
+  "time_steps": [
+    {
+      "scene_id": "SIHDR_001",
+      "time_index": 0,
+      "target_hdr_enable": 1,
+      "hdr_probability": 0.827158510684967,
+      "decision_threshold": 0.6008205711841583,
+      "predicted_hdr_enable": 1,
+      "correct": 1,
+      "probability_margin": 0.22633793950080872,
+      "operating_filename": "SIHDR_001_e07.jpg",
+      "operating_exposure_index": 7,
+      "operating_applied_ev": 11.287712097167969,
+      "target_ev": 11.287712097167969,
+      "distance_to_target_ev": 0.0,
+      "bracket_wrong_count": 4,
+      "bracket_count": 15,
+      "bracket": [
+        {
+          "filename": "SIHDR_001_e00.jpg",
+          "exposure_index": 0,
+          "applied_ev": 17.194602966308594,
+          "hdr_probability": 0.995101809501648,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_001_e01.jpg",
+          "exposure_index": 1,
+          "applied_ev": 16.28771209716797,
+          "hdr_probability": 0.995023250579834,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_001_e02.jpg",
+          "exposure_index": 2,
+          "applied_ev": 15.872674942016602,
+          "hdr_probability": 0.994602620601654,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_001_e03.jpg",
+          "exposure_index": 3,
+          "applied_ev": 15.287712097167969,
+          "hdr_probability": 0.9929258823394775,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_001_e04.jpg",
+          "exposure_index": 4,
+          "applied_ev": 14.287712097167969,
+          "hdr_probability": 0.9817115068435669,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_001_e05.jpg",
+          "exposure_index": 5,
+          "applied_ev": 13.287712097167969,
+          "hdr_probability": 0.9507303833961487,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_001_e06.jpg",
+          "exposure_index": 6,
+          "applied_ev": 12.287712097167969,
+          "hdr_probability": 0.8895238041877747,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_001_e07.jpg",
+          "exposure_index": 7,
+          "applied_ev": 11.287712097167969,
+          "hdr_probability": 0.827158510684967,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": true
+        },
+        {
+          "filename": "SIHDR_001_e08.jpg",
+          "exposure_index": 8,
+          "applied_ev": 10.287712097167969,
+          "hdr_probability": 0.763967752456665,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_001_e09.jpg",
+          "exposure_index": 9,
+          "applied_ev": 9.38082218170166,
+          "hdr_probability": 0.687231719493866,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_001_e10.jpg",
+          "exposure_index": 10,
+          "applied_ev": 8.38082218170166,
+          "hdr_probability": 0.6182693243026733,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_001_e11.jpg",
+          "exposure_index": 11,
+          "applied_ev": 7.380821704864502,
+          "hdr_probability": 0.5946614742279053,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_001_e12.jpg",
+          "exposure_index": 12,
+          "applied_ev": 6.321928024291992,
+          "hdr_probability": 0.5663645267486572,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_001_e13.jpg",
+          "exposure_index": 13,
+          "applied_ev": 5.321928024291992,
+          "hdr_probability": 0.5737616419792175,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_001_e14.jpg",
+          "exposure_index": 14,
+          "applied_ev": 4.321928024291992,
+          "hdr_probability": 0.5426068902015686,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        }
+      ]
+    },
+    {
+      "scene_id": "SIHDR_003",
+      "time_index": 2,
+      "target_hdr_enable": 1,
+      "hdr_probability": 0.7223880290985107,
+      "decision_threshold": 0.6008205711841583,
+      "predicted_hdr_enable": 1,
+      "correct": 1,
+      "probability_margin": 0.12156745791435242,
+      "operating_filename": "SIHDR_003_e07.jpg",
+      "operating_exposure_index": 7,
+      "operating_applied_ev": 11.287712097167969,
+      "target_ev": 11.287712097167969,
+      "distance_to_target_ev": 0.0,
+      "bracket_wrong_count": 6,
+      "bracket_count": 15,
+      "bracket": [
+        {
+          "filename": "SIHDR_003_e00.jpg",
+          "exposure_index": 0,
+          "applied_ev": 17.194602966308594,
+          "hdr_probability": 0.9897856712341309,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_003_e01.jpg",
+          "exposure_index": 1,
+          "applied_ev": 16.28771209716797,
+          "hdr_probability": 0.9844635725021362,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_003_e02.jpg",
+          "exposure_index": 2,
+          "applied_ev": 15.872674942016602,
+          "hdr_probability": 0.9814975261688232,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_003_e03.jpg",
+          "exposure_index": 3,
+          "applied_ev": 15.287712097167969,
+          "hdr_probability": 0.9729552268981934,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_003_e04.jpg",
+          "exposure_index": 4,
+          "applied_ev": 14.287712097167969,
+          "hdr_probability": 0.950764536857605,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_003_e05.jpg",
+          "exposure_index": 5,
+          "applied_ev": 13.287712097167969,
+          "hdr_probability": 0.9188278317451477,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_003_e06.jpg",
+          "exposure_index": 6,
+          "applied_ev": 12.287712097167969,
+          "hdr_probability": 0.843238115310669,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_003_e07.jpg",
+          "exposure_index": 7,
+          "applied_ev": 11.287712097167969,
+          "hdr_probability": 0.7223880290985107,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": true
+        },
+        {
+          "filename": "SIHDR_003_e08.jpg",
+          "exposure_index": 8,
+          "applied_ev": 10.287712097167969,
+          "hdr_probability": 0.6263137459754944,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_003_e09.jpg",
+          "exposure_index": 9,
+          "applied_ev": 9.38082218170166,
+          "hdr_probability": 0.5860497951507568,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_003_e10.jpg",
+          "exposure_index": 10,
+          "applied_ev": 8.38082218170166,
+          "hdr_probability": 0.5655818581581116,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_003_e11.jpg",
+          "exposure_index": 11,
+          "applied_ev": 7.380821704864502,
+          "hdr_probability": 0.5420154333114624,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_003_e12.jpg",
+          "exposure_index": 12,
+          "applied_ev": 6.321928024291992,
+          "hdr_probability": 0.5283639430999756,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_003_e13.jpg",
+          "exposure_index": 13,
+          "applied_ev": 5.321928024291992,
+          "hdr_probability": 0.5318000912666321,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_003_e14.jpg",
+          "exposure_index": 14,
+          "applied_ev": 4.321928024291992,
+          "hdr_probability": 0.5372756123542786,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        }
+      ]
+    },
+    {
+      "scene_id": "SIHDR_023",
+      "time_index": 20,
+      "target_hdr_enable": 0,
+      "hdr_probability": 0.5713609457015991,
+      "decision_threshold": 0.6008205711841583,
+      "predicted_hdr_enable": 0,
+      "correct": 1,
+      "probability_margin": 0.029459625482559204,
+      "operating_filename": "SIHDR_023_e00.jpg",
+      "operating_exposure_index": 0,
+      "operating_applied_ev": 17.194602966308594,
+      "target_ev": 17.194602966308594,
+      "distance_to_target_ev": 0.0,
+      "bracket_wrong_count": 0,
+      "bracket_count": 15,
+      "bracket": [
+        {
+          "filename": "SIHDR_023_e00.jpg",
+          "exposure_index": 0,
+          "applied_ev": 17.194602966308594,
+          "hdr_probability": 0.5713609457015991,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": true
+        },
+        {
+          "filename": "SIHDR_023_e01.jpg",
+          "exposure_index": 1,
+          "applied_ev": 16.28771209716797,
+          "hdr_probability": 0.5177639126777649,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_023_e02.jpg",
+          "exposure_index": 2,
+          "applied_ev": 15.872674942016602,
+          "hdr_probability": 0.5045710206031799,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_023_e03.jpg",
+          "exposure_index": 3,
+          "applied_ev": 15.287712097167969,
+          "hdr_probability": 0.4921908676624298,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_023_e04.jpg",
+          "exposure_index": 4,
+          "applied_ev": 14.287712097167969,
+          "hdr_probability": 0.4822849631309509,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_023_e05.jpg",
+          "exposure_index": 5,
+          "applied_ev": 13.287712097167969,
+          "hdr_probability": 0.48939499258995056,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_023_e06.jpg",
+          "exposure_index": 6,
+          "applied_ev": 12.287712097167969,
+          "hdr_probability": 0.49397438764572144,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_023_e07.jpg",
+          "exposure_index": 7,
+          "applied_ev": 11.287712097167969,
+          "hdr_probability": 0.4967913329601288,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_023_e08.jpg",
+          "exposure_index": 8,
+          "applied_ev": 10.287712097167969,
+          "hdr_probability": 0.4974510073661804,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_023_e09.jpg",
+          "exposure_index": 9,
+          "applied_ev": 9.38082218170166,
+          "hdr_probability": 0.5025437474250793,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_023_e10.jpg",
+          "exposure_index": 10,
+          "applied_ev": 8.38082218170166,
+          "hdr_probability": 0.5040332674980164,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_023_e11.jpg",
+          "exposure_index": 11,
+          "applied_ev": 7.380821704864502,
+          "hdr_probability": 0.5116159915924072,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_023_e12.jpg",
+          "exposure_index": 12,
+          "applied_ev": 6.321928024291992,
+          "hdr_probability": 0.5198055505752563,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_023_e13.jpg",
+          "exposure_index": 13,
+          "applied_ev": 5.321928024291992,
+          "hdr_probability": 0.5276675224304199,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_023_e14.jpg",
+          "exposure_index": 14,
+          "applied_ev": 4.321928024291992,
+          "hdr_probability": 0.5352422595024109,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        }
+      ]
+    },
+    {
+      "scene_id": "SIHDR_029",
+      "time_index": 24,
+      "target_hdr_enable": 0,
+      "hdr_probability": 0.8668383359909058,
+      "decision_threshold": 0.6008205711841583,
+      "predicted_hdr_enable": 1,
+      "correct": 0,
+      "probability_margin": 0.26601776480674744,
+      "operating_filename": "SIHDR_029_e10.jpg",
+      "operating_exposure_index": 10,
+      "operating_applied_ev": 8.38082218170166,
+      "target_ev": 8.38082218170166,
+      "distance_to_target_ev": 0.0,
+      "bracket_wrong_count": 14,
+      "bracket_count": 15,
+      "bracket": [
+        {
+          "filename": "SIHDR_029_e00.jpg",
+          "exposure_index": 0,
+          "applied_ev": 17.194602966308594,
+          "hdr_probability": 0.9951024055480957,
+          "predicted_hdr_enable": 1,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_029_e01.jpg",
+          "exposure_index": 1,
+          "applied_ev": 16.28771209716797,
+          "hdr_probability": 0.9952444434165955,
+          "predicted_hdr_enable": 1,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_029_e02.jpg",
+          "exposure_index": 2,
+          "applied_ev": 15.872674942016602,
+          "hdr_probability": 0.995263934135437,
+          "predicted_hdr_enable": 1,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_029_e03.jpg",
+          "exposure_index": 3,
+          "applied_ev": 15.287712097167969,
+          "hdr_probability": 0.9952682852745056,
+          "predicted_hdr_enable": 1,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_029_e04.jpg",
+          "exposure_index": 4,
+          "applied_ev": 14.287712097167969,
+          "hdr_probability": 0.9952759742736816,
+          "predicted_hdr_enable": 1,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_029_e05.jpg",
+          "exposure_index": 5,
+          "applied_ev": 13.287712097167969,
+          "hdr_probability": 0.9951634407043457,
+          "predicted_hdr_enable": 1,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_029_e06.jpg",
+          "exposure_index": 6,
+          "applied_ev": 12.287712097167969,
+          "hdr_probability": 0.9948084950447083,
+          "predicted_hdr_enable": 1,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_029_e07.jpg",
+          "exposure_index": 7,
+          "applied_ev": 11.287712097167969,
+          "hdr_probability": 0.9941455125808716,
+          "predicted_hdr_enable": 1,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_029_e08.jpg",
+          "exposure_index": 8,
+          "applied_ev": 10.287712097167969,
+          "hdr_probability": 0.9888108968734741,
+          "predicted_hdr_enable": 1,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_029_e09.jpg",
+          "exposure_index": 9,
+          "applied_ev": 9.38082218170166,
+          "hdr_probability": 0.9602072834968567,
+          "predicted_hdr_enable": 1,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_029_e10.jpg",
+          "exposure_index": 10,
+          "applied_ev": 8.38082218170166,
+          "hdr_probability": 0.8668383359909058,
+          "predicted_hdr_enable": 1,
+          "correct": 0,
+          "is_operating_frame": true
+        },
+        {
+          "filename": "SIHDR_029_e11.jpg",
+          "exposure_index": 11,
+          "applied_ev": 7.380821704864502,
+          "hdr_probability": 0.763347864151001,
+          "predicted_hdr_enable": 1,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_029_e12.jpg",
+          "exposure_index": 12,
+          "applied_ev": 6.321928024291992,
+          "hdr_probability": 0.6922433972358704,
+          "predicted_hdr_enable": 1,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_029_e13.jpg",
+          "exposure_index": 13,
+          "applied_ev": 5.321928024291992,
+          "hdr_probability": 0.6559953689575195,
+          "predicted_hdr_enable": 1,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_029_e14.jpg",
+          "exposure_index": 14,
+          "applied_ev": 4.321928024291992,
+          "hdr_probability": 0.5764053463935852,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        }
+      ]
+    },
+    {
+      "scene_id": "SIHDR_060",
+      "time_index": 54,
+      "target_hdr_enable": 1,
+      "hdr_probability": 0.9002525210380554,
+      "decision_threshold": 0.6008205711841583,
+      "predicted_hdr_enable": 1,
+      "correct": 1,
+      "probability_margin": 0.2994319498538971,
+      "operating_filename": "SIHDR_060_e07.jpg",
+      "operating_exposure_index": 7,
+      "operating_applied_ev": 11.287712097167969,
+      "target_ev": 11.287712097167969,
+      "distance_to_target_ev": 0.0,
+      "bracket_wrong_count": 0,
+      "bracket_count": 15,
+      "bracket": [
+        {
+          "filename": "SIHDR_060_e00.jpg",
+          "exposure_index": 0,
+          "applied_ev": 17.194602966308594,
+          "hdr_probability": 0.9951024055480957,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_060_e01.jpg",
+          "exposure_index": 1,
+          "applied_ev": 16.28771209716797,
+          "hdr_probability": 0.9952613711357117,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_060_e02.jpg",
+          "exposure_index": 2,
+          "applied_ev": 15.872674942016602,
+          "hdr_probability": 0.9952617883682251,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_060_e03.jpg",
+          "exposure_index": 3,
+          "applied_ev": 15.287712097167969,
+          "hdr_probability": 0.9947786331176758,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_060_e04.jpg",
+          "exposure_index": 4,
+          "applied_ev": 14.287712097167969,
+          "hdr_probability": 0.9924181699752808,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_060_e05.jpg",
+          "exposure_index": 5,
+          "applied_ev": 13.287712097167969,
+          "hdr_probability": 0.982774019241333,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_060_e06.jpg",
+          "exposure_index": 6,
+          "applied_ev": 12.287712097167969,
+          "hdr_probability": 0.9481894373893738,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_060_e07.jpg",
+          "exposure_index": 7,
+          "applied_ev": 11.287712097167969,
+          "hdr_probability": 0.9002525210380554,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": true
+        },
+        {
+          "filename": "SIHDR_060_e08.jpg",
+          "exposure_index": 8,
+          "applied_ev": 10.287712097167969,
+          "hdr_probability": 0.8702364563941956,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_060_e09.jpg",
+          "exposure_index": 9,
+          "applied_ev": 9.38082218170166,
+          "hdr_probability": 0.8535721302032471,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_060_e10.jpg",
+          "exposure_index": 10,
+          "applied_ev": 8.38082218170166,
+          "hdr_probability": 0.8344064950942993,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_060_e11.jpg",
+          "exposure_index": 11,
+          "applied_ev": 7.380821704864502,
+          "hdr_probability": 0.7966030836105347,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_060_e12.jpg",
+          "exposure_index": 12,
+          "applied_ev": 6.321928024291992,
+          "hdr_probability": 0.7296510338783264,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_060_e13.jpg",
+          "exposure_index": 13,
+          "applied_ev": 5.321928024291992,
+          "hdr_probability": 0.6593021154403687,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_060_e14.jpg",
+          "exposure_index": 14,
+          "applied_ev": 4.321928024291992,
+          "hdr_probability": 0.6163151860237122,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        }
+      ]
+    },
+    {
+      "scene_id": "SIHDR_068",
+      "time_index": 61,
+      "target_hdr_enable": 1,
+      "hdr_probability": 0.74318927526474,
+      "decision_threshold": 0.6008205711841583,
+      "predicted_hdr_enable": 1,
+      "correct": 1,
+      "probability_margin": 0.14236870408058167,
+      "operating_filename": "SIHDR_068_e10.jpg",
+      "operating_exposure_index": 10,
+      "operating_applied_ev": 8.38082218170166,
+      "target_ev": 8.38082218170166,
+      "distance_to_target_ev": 0.0,
+      "bracket_wrong_count": 1,
+      "bracket_count": 15,
+      "bracket": [
+        {
+          "filename": "SIHDR_068_e00.jpg",
+          "exposure_index": 0,
+          "applied_ev": 17.194602966308594,
+          "hdr_probability": 0.9951024055480957,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_068_e01.jpg",
+          "exposure_index": 1,
+          "applied_ev": 16.28771209716797,
+          "hdr_probability": 0.9951639175415039,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_068_e02.jpg",
+          "exposure_index": 2,
+          "applied_ev": 15.872674942016602,
+          "hdr_probability": 0.9946016073226929,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_068_e03.jpg",
+          "exposure_index": 3,
+          "applied_ev": 15.287712097167969,
+          "hdr_probability": 0.9927225708961487,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_068_e04.jpg",
+          "exposure_index": 4,
+          "applied_ev": 14.287712097167969,
+          "hdr_probability": 0.9851236939430237,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_068_e05.jpg",
+          "exposure_index": 5,
+          "applied_ev": 13.287712097167969,
+          "hdr_probability": 0.9702526926994324,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_068_e06.jpg",
+          "exposure_index": 6,
+          "applied_ev": 12.287712097167969,
+          "hdr_probability": 0.9434547424316406,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_068_e07.jpg",
+          "exposure_index": 7,
+          "applied_ev": 11.287712097167969,
+          "hdr_probability": 0.919287919998169,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_068_e08.jpg",
+          "exposure_index": 8,
+          "applied_ev": 10.287712097167969,
+          "hdr_probability": 0.8938456177711487,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_068_e09.jpg",
+          "exposure_index": 9,
+          "applied_ev": 9.38082218170166,
+          "hdr_probability": 0.8585574626922607,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_068_e10.jpg",
+          "exposure_index": 10,
+          "applied_ev": 8.38082218170166,
+          "hdr_probability": 0.74318927526474,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": true
+        },
+        {
+          "filename": "SIHDR_068_e11.jpg",
+          "exposure_index": 11,
+          "applied_ev": 7.380821704864502,
+          "hdr_probability": 0.6620075106620789,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_068_e12.jpg",
+          "exposure_index": 12,
+          "applied_ev": 6.321928024291992,
+          "hdr_probability": 0.6049212217330933,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_068_e13.jpg",
+          "exposure_index": 13,
+          "applied_ev": 5.321928024291992,
+          "hdr_probability": 0.6080222725868225,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_068_e14.jpg",
+          "exposure_index": 14,
+          "applied_ev": 4.321928024291992,
+          "hdr_probability": 0.5566763281822205,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        }
+      ]
+    },
+    {
+      "scene_id": "SIHDR_082",
+      "time_index": 75,
+      "target_hdr_enable": 1,
+      "hdr_probability": 0.8824068903923035,
+      "decision_threshold": 0.6008205711841583,
+      "predicted_hdr_enable": 1,
+      "correct": 1,
+      "probability_margin": 0.28158631920814514,
+      "operating_filename": "SIHDR_082_e06.jpg",
+      "operating_exposure_index": 6,
+      "operating_applied_ev": 12.287712097167969,
+      "target_ev": 12.287712097167969,
+      "distance_to_target_ev": 0.0,
+      "bracket_wrong_count": 3,
+      "bracket_count": 15,
+      "bracket": [
+        {
+          "filename": "SIHDR_082_e00.jpg",
+          "exposure_index": 0,
+          "applied_ev": 17.194602966308594,
+          "hdr_probability": 0.99405437707901,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_082_e01.jpg",
+          "exposure_index": 1,
+          "applied_ev": 16.28771209716797,
+          "hdr_probability": 0.9928977489471436,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_082_e02.jpg",
+          "exposure_index": 2,
+          "applied_ev": 15.872674942016602,
+          "hdr_probability": 0.9915830492973328,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_082_e03.jpg",
+          "exposure_index": 3,
+          "applied_ev": 15.287712097167969,
+          "hdr_probability": 0.9874381422996521,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_082_e04.jpg",
+          "exposure_index": 4,
+          "applied_ev": 14.287712097167969,
+          "hdr_probability": 0.9620010852813721,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_082_e05.jpg",
+          "exposure_index": 5,
+          "applied_ev": 13.287712097167969,
+          "hdr_probability": 0.9207360744476318,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_082_e06.jpg",
+          "exposure_index": 6,
+          "applied_ev": 12.287712097167969,
+          "hdr_probability": 0.8824068903923035,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": true
+        },
+        {
+          "filename": "SIHDR_082_e07.jpg",
+          "exposure_index": 7,
+          "applied_ev": 11.287712097167969,
+          "hdr_probability": 0.8572293519973755,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_082_e08.jpg",
+          "exposure_index": 8,
+          "applied_ev": 10.287712097167969,
+          "hdr_probability": 0.8287737369537354,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_082_e09.jpg",
+          "exposure_index": 9,
+          "applied_ev": 9.38082218170166,
+          "hdr_probability": 0.7480644583702087,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_082_e10.jpg",
+          "exposure_index": 10,
+          "applied_ev": 8.38082218170166,
+          "hdr_probability": 0.651888370513916,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_082_e11.jpg",
+          "exposure_index": 11,
+          "applied_ev": 7.380821704864502,
+          "hdr_probability": 0.6091671586036682,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_082_e12.jpg",
+          "exposure_index": 12,
+          "applied_ev": 6.321928024291992,
+          "hdr_probability": 0.5712144374847412,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_082_e13.jpg",
+          "exposure_index": 13,
+          "applied_ev": 5.321928024291992,
+          "hdr_probability": 0.5760867595672607,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_082_e14.jpg",
+          "exposure_index": 14,
+          "applied_ev": 4.321928024291992,
+          "hdr_probability": 0.5446397066116333,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        }
+      ]
+    },
+    {
+      "scene_id": "SIHDR_084",
+      "time_index": 77,
+      "target_hdr_enable": 1,
+      "hdr_probability": 0.9336212277412415,
+      "decision_threshold": 0.6008205711841583,
+      "predicted_hdr_enable": 1,
+      "correct": 1,
+      "probability_margin": 0.33280065655708313,
+      "operating_filename": "SIHDR_084_e09.jpg",
+      "operating_exposure_index": 9,
+      "operating_applied_ev": 9.38082218170166,
+      "target_ev": 9.38082218170166,
+      "distance_to_target_ev": 0.0,
+      "bracket_wrong_count": 1,
+      "bracket_count": 15,
+      "bracket": [
+        {
+          "filename": "SIHDR_084_e00.jpg",
+          "exposure_index": 0,
+          "applied_ev": 17.194602966308594,
+          "hdr_probability": 0.9949435591697693,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_084_e01.jpg",
+          "exposure_index": 1,
+          "applied_ev": 16.28771209716797,
+          "hdr_probability": 0.9941341280937195,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_084_e02.jpg",
+          "exposure_index": 2,
+          "applied_ev": 15.872674942016602,
+          "hdr_probability": 0.993126392364502,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_084_e03.jpg",
+          "exposure_index": 3,
+          "applied_ev": 15.287712097167969,
+          "hdr_probability": 0.9910558462142944,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_084_e04.jpg",
+          "exposure_index": 4,
+          "applied_ev": 14.287712097167969,
+          "hdr_probability": 0.9862844944000244,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_084_e05.jpg",
+          "exposure_index": 5,
+          "applied_ev": 13.287712097167969,
+          "hdr_probability": 0.9759440422058105,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_084_e06.jpg",
+          "exposure_index": 6,
+          "applied_ev": 12.287712097167969,
+          "hdr_probability": 0.9659414291381836,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_084_e07.jpg",
+          "exposure_index": 7,
+          "applied_ev": 11.287712097167969,
+          "hdr_probability": 0.9565118551254272,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_084_e08.jpg",
+          "exposure_index": 8,
+          "applied_ev": 10.287712097167969,
+          "hdr_probability": 0.948562502861023,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_084_e09.jpg",
+          "exposure_index": 9,
+          "applied_ev": 9.38082218170166,
+          "hdr_probability": 0.9336212277412415,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": true
+        },
+        {
+          "filename": "SIHDR_084_e10.jpg",
+          "exposure_index": 10,
+          "applied_ev": 8.38082218170166,
+          "hdr_probability": 0.8459588289260864,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_084_e11.jpg",
+          "exposure_index": 11,
+          "applied_ev": 7.380821704864502,
+          "hdr_probability": 0.7240228652954102,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_084_e12.jpg",
+          "exposure_index": 12,
+          "applied_ev": 6.321928024291992,
+          "hdr_probability": 0.6466237902641296,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_084_e13.jpg",
+          "exposure_index": 13,
+          "applied_ev": 5.321928024291992,
+          "hdr_probability": 0.6142560243606567,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_084_e14.jpg",
+          "exposure_index": 14,
+          "applied_ev": 4.321928024291992,
+          "hdr_probability": 0.5874621272087097,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        }
+      ]
+    },
+    {
+      "scene_id": "SIHDR_086",
+      "time_index": 79,
+      "target_hdr_enable": 1,
+      "hdr_probability": 0.849032461643219,
+      "decision_threshold": 0.6008205711841583,
+      "predicted_hdr_enable": 1,
+      "correct": 1,
+      "probability_margin": 0.24821189045906067,
+      "operating_filename": "SIHDR_086_e09.jpg",
+      "operating_exposure_index": 9,
+      "operating_applied_ev": 9.38082218170166,
+      "target_ev": 9.38082218170166,
+      "distance_to_target_ev": 0.0,
+      "bracket_wrong_count": 2,
+      "bracket_count": 15,
+      "bracket": [
+        {
+          "filename": "SIHDR_086_e00.jpg",
+          "exposure_index": 0,
+          "applied_ev": 17.194602966308594,
+          "hdr_probability": 0.9950719475746155,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_086_e01.jpg",
+          "exposure_index": 1,
+          "applied_ev": 16.28771209716797,
+          "hdr_probability": 0.9945695996284485,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_086_e02.jpg",
+          "exposure_index": 2,
+          "applied_ev": 15.872674942016602,
+          "hdr_probability": 0.9941273927688599,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_086_e03.jpg",
+          "exposure_index": 3,
+          "applied_ev": 15.287712097167969,
+          "hdr_probability": 0.992608368396759,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_086_e04.jpg",
+          "exposure_index": 4,
+          "applied_ev": 14.287712097167969,
+          "hdr_probability": 0.987106204032898,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_086_e05.jpg",
+          "exposure_index": 5,
+          "applied_ev": 13.287712097167969,
+          "hdr_probability": 0.9758256077766418,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_086_e06.jpg",
+          "exposure_index": 6,
+          "applied_ev": 12.287712097167969,
+          "hdr_probability": 0.9632322788238525,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_086_e07.jpg",
+          "exposure_index": 7,
+          "applied_ev": 11.287712097167969,
+          "hdr_probability": 0.9513494968414307,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_086_e08.jpg",
+          "exposure_index": 8,
+          "applied_ev": 10.287712097167969,
+          "hdr_probability": 0.9165033102035522,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_086_e09.jpg",
+          "exposure_index": 9,
+          "applied_ev": 9.38082218170166,
+          "hdr_probability": 0.849032461643219,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": true
+        },
+        {
+          "filename": "SIHDR_086_e10.jpg",
+          "exposure_index": 10,
+          "applied_ev": 8.38082218170166,
+          "hdr_probability": 0.7467077970504761,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_086_e11.jpg",
+          "exposure_index": 11,
+          "applied_ev": 7.380821704864502,
+          "hdr_probability": 0.6636232733726501,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_086_e12.jpg",
+          "exposure_index": 12,
+          "applied_ev": 6.321928024291992,
+          "hdr_probability": 0.6247393488883972,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_086_e13.jpg",
+          "exposure_index": 13,
+          "applied_ev": 5.321928024291992,
+          "hdr_probability": 0.5938411951065063,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_086_e14.jpg",
+          "exposure_index": 14,
+          "applied_ev": 4.321928024291992,
+          "hdr_probability": 0.5670777559280396,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        }
+      ]
+    },
+    {
+      "scene_id": "SIHDR_104",
+      "time_index": 94,
+      "target_hdr_enable": 0,
+      "hdr_probability": 0.4651288390159607,
+      "decision_threshold": 0.6008205711841583,
+      "predicted_hdr_enable": 0,
+      "correct": 1,
+      "probability_margin": 0.13569173216819763,
+      "operating_filename": "SIHDR_104_e00.jpg",
+      "operating_exposure_index": 0,
+      "operating_applied_ev": 17.194602966308594,
+      "target_ev": 17.194602966308594,
+      "distance_to_target_ev": 0.0,
+      "bracket_wrong_count": 0,
+      "bracket_count": 15,
+      "bracket": [
+        {
+          "filename": "SIHDR_104_e00.jpg",
+          "exposure_index": 0,
+          "applied_ev": 17.194602966308594,
+          "hdr_probability": 0.4651288390159607,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": true
+        },
+        {
+          "filename": "SIHDR_104_e01.jpg",
+          "exposure_index": 1,
+          "applied_ev": 16.28771209716797,
+          "hdr_probability": 0.46325916051864624,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_104_e02.jpg",
+          "exposure_index": 2,
+          "applied_ev": 15.872674942016602,
+          "hdr_probability": 0.4638904929161072,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_104_e03.jpg",
+          "exposure_index": 3,
+          "applied_ev": 15.287712097167969,
+          "hdr_probability": 0.4658434987068176,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_104_e04.jpg",
+          "exposure_index": 4,
+          "applied_ev": 14.287712097167969,
+          "hdr_probability": 0.4687773883342743,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_104_e05.jpg",
+          "exposure_index": 5,
+          "applied_ev": 13.287712097167969,
+          "hdr_probability": 0.4729840159416199,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_104_e06.jpg",
+          "exposure_index": 6,
+          "applied_ev": 12.287712097167969,
+          "hdr_probability": 0.4781968295574188,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_104_e07.jpg",
+          "exposure_index": 7,
+          "applied_ev": 11.287712097167969,
+          "hdr_probability": 0.4839899241924286,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_104_e08.jpg",
+          "exposure_index": 8,
+          "applied_ev": 10.287712097167969,
+          "hdr_probability": 0.4902075529098511,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_104_e09.jpg",
+          "exposure_index": 9,
+          "applied_ev": 9.38082218170166,
+          "hdr_probability": 0.4961559474468231,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_104_e10.jpg",
+          "exposure_index": 10,
+          "applied_ev": 8.38082218170166,
+          "hdr_probability": 0.5031945109367371,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_104_e11.jpg",
+          "exposure_index": 11,
+          "applied_ev": 7.380821704864502,
+          "hdr_probability": 0.5113543272018433,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_104_e12.jpg",
+          "exposure_index": 12,
+          "applied_ev": 6.321928024291992,
+          "hdr_probability": 0.5196956992149353,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_104_e13.jpg",
+          "exposure_index": 13,
+          "applied_ev": 5.321928024291992,
+          "hdr_probability": 0.5276119709014893,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_104_e14.jpg",
+          "exposure_index": 14,
+          "applied_ev": 4.321928024291992,
+          "hdr_probability": 0.5352123379707336,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        }
+      ]
+    },
+    {
+      "scene_id": "SIHDR_110",
+      "time_index": 100,
+      "target_hdr_enable": 0,
+      "hdr_probability": 0.577551007270813,
+      "decision_threshold": 0.6008205711841583,
+      "predicted_hdr_enable": 0,
+      "correct": 1,
+      "probability_margin": 0.023269563913345337,
+      "operating_filename": "SIHDR_110_e01.jpg",
+      "operating_exposure_index": 1,
+      "operating_applied_ev": 16.28771209716797,
+      "target_ev": 16.28771209716797,
+      "distance_to_target_ev": 0.0,
+      "bracket_wrong_count": 1,
+      "bracket_count": 15,
+      "bracket": [
+        {
+          "filename": "SIHDR_110_e00.jpg",
+          "exposure_index": 0,
+          "applied_ev": 17.194602966308594,
+          "hdr_probability": 0.6514467000961304,
+          "predicted_hdr_enable": 1,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_110_e01.jpg",
+          "exposure_index": 1,
+          "applied_ev": 16.28771209716797,
+          "hdr_probability": 0.577551007270813,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": true
+        },
+        {
+          "filename": "SIHDR_110_e02.jpg",
+          "exposure_index": 2,
+          "applied_ev": 15.872674942016602,
+          "hdr_probability": 0.5652092695236206,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_110_e03.jpg",
+          "exposure_index": 3,
+          "applied_ev": 15.287712097167969,
+          "hdr_probability": 0.5606471300125122,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_110_e04.jpg",
+          "exposure_index": 4,
+          "applied_ev": 14.287712097167969,
+          "hdr_probability": 0.5089513063430786,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_110_e05.jpg",
+          "exposure_index": 5,
+          "applied_ev": 13.287712097167969,
+          "hdr_probability": 0.5019885301589966,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_110_e06.jpg",
+          "exposure_index": 6,
+          "applied_ev": 12.287712097167969,
+          "hdr_probability": 0.4879552125930786,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_110_e07.jpg",
+          "exposure_index": 7,
+          "applied_ev": 11.287712097167969,
+          "hdr_probability": 0.4867788851261139,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_110_e08.jpg",
+          "exposure_index": 8,
+          "applied_ev": 10.287712097167969,
+          "hdr_probability": 0.4913312792778015,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_110_e09.jpg",
+          "exposure_index": 9,
+          "applied_ev": 9.38082218170166,
+          "hdr_probability": 0.4968048334121704,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_110_e10.jpg",
+          "exposure_index": 10,
+          "applied_ev": 8.38082218170166,
+          "hdr_probability": 0.5035274028778076,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_110_e11.jpg",
+          "exposure_index": 11,
+          "applied_ev": 7.380821704864502,
+          "hdr_probability": 0.5116603970527649,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_110_e12.jpg",
+          "exposure_index": 12,
+          "applied_ev": 6.321928024291992,
+          "hdr_probability": 0.5199143886566162,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_110_e13.jpg",
+          "exposure_index": 13,
+          "applied_ev": 5.321928024291992,
+          "hdr_probability": 0.5277458429336548,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_110_e14.jpg",
+          "exposure_index": 14,
+          "applied_ev": 4.321928024291992,
+          "hdr_probability": 0.5352780818939209,
+          "predicted_hdr_enable": 0,
+          "correct": 1,
+          "is_operating_frame": false
+        }
+      ]
+    },
+    {
+      "scene_id": "SIHDR_124",
+      "time_index": 114,
+      "target_hdr_enable": 1,
+      "hdr_probability": 0.8805109858512878,
+      "decision_threshold": 0.6008205711841583,
+      "predicted_hdr_enable": 1,
+      "correct": 1,
+      "probability_margin": 0.2796904146671295,
+      "operating_filename": "SIHDR_124_e07.jpg",
+      "operating_exposure_index": 7,
+      "operating_applied_ev": 11.287712097167969,
+      "target_ev": 11.287712097167969,
+      "distance_to_target_ev": 0.0,
+      "bracket_wrong_count": 3,
+      "bracket_count": 15,
+      "bracket": [
+        {
+          "filename": "SIHDR_124_e00.jpg",
+          "exposure_index": 0,
+          "applied_ev": 17.194602966308594,
+          "hdr_probability": 0.9944722056388855,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_124_e01.jpg",
+          "exposure_index": 1,
+          "applied_ev": 16.28771209716797,
+          "hdr_probability": 0.9923967719078064,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_124_e02.jpg",
+          "exposure_index": 2,
+          "applied_ev": 15.872674942016602,
+          "hdr_probability": 0.9904991984367371,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_124_e03.jpg",
+          "exposure_index": 3,
+          "applied_ev": 15.287712097167969,
+          "hdr_probability": 0.9871484637260437,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_124_e04.jpg",
+          "exposure_index": 4,
+          "applied_ev": 14.287712097167969,
+          "hdr_probability": 0.9793382287025452,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_124_e05.jpg",
+          "exposure_index": 5,
+          "applied_ev": 13.287712097167969,
+          "hdr_probability": 0.9648004770278931,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_124_e06.jpg",
+          "exposure_index": 6,
+          "applied_ev": 12.287712097167969,
+          "hdr_probability": 0.9321574568748474,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_124_e07.jpg",
+          "exposure_index": 7,
+          "applied_ev": 11.287712097167969,
+          "hdr_probability": 0.8805109858512878,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": true
+        },
+        {
+          "filename": "SIHDR_124_e08.jpg",
+          "exposure_index": 8,
+          "applied_ev": 10.287712097167969,
+          "hdr_probability": 0.8093886971473694,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_124_e09.jpg",
+          "exposure_index": 9,
+          "applied_ev": 9.38082218170166,
+          "hdr_probability": 0.7465943694114685,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_124_e10.jpg",
+          "exposure_index": 10,
+          "applied_ev": 8.38082218170166,
+          "hdr_probability": 0.6746811270713806,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_124_e11.jpg",
+          "exposure_index": 11,
+          "applied_ev": 7.380821704864502,
+          "hdr_probability": 0.6162944436073303,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_124_e12.jpg",
+          "exposure_index": 12,
+          "applied_ev": 6.321928024291992,
+          "hdr_probability": 0.5800544619560242,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_124_e13.jpg",
+          "exposure_index": 13,
+          "applied_ev": 5.321928024291992,
+          "hdr_probability": 0.5594159364700317,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_124_e14.jpg",
+          "exposure_index": 14,
+          "applied_ev": 4.321928024291992,
+          "hdr_probability": 0.5517364740371704,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        }
+      ]
+    },
+    {
+      "scene_id": "SIHDR_135",
+      "time_index": 124,
+      "target_hdr_enable": 1,
+      "hdr_probability": 0.854282796382904,
+      "decision_threshold": 0.6008205711841583,
+      "predicted_hdr_enable": 1,
+      "correct": 1,
+      "probability_margin": 0.2534622251987457,
+      "operating_filename": "SIHDR_135_e10.jpg",
+      "operating_exposure_index": 10,
+      "operating_applied_ev": 8.38082218170166,
+      "target_ev": 8.38082218170166,
+      "distance_to_target_ev": 0.0,
+      "bracket_wrong_count": 0,
+      "bracket_count": 15,
+      "bracket": [
+        {
+          "filename": "SIHDR_135_e00.jpg",
+          "exposure_index": 0,
+          "applied_ev": 17.194602966308594,
+          "hdr_probability": 0.9951024055480957,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_135_e01.jpg",
+          "exposure_index": 1,
+          "applied_ev": 16.28771209716797,
+          "hdr_probability": 0.9952444434165955,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_135_e02.jpg",
+          "exposure_index": 2,
+          "applied_ev": 15.872674942016602,
+          "hdr_probability": 0.995263934135437,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_135_e03.jpg",
+          "exposure_index": 3,
+          "applied_ev": 15.287712097167969,
+          "hdr_probability": 0.9952669143676758,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_135_e04.jpg",
+          "exposure_index": 4,
+          "applied_ev": 14.287712097167969,
+          "hdr_probability": 0.9950621724128723,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_135_e05.jpg",
+          "exposure_index": 5,
+          "applied_ev": 13.287712097167969,
+          "hdr_probability": 0.9928897619247437,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_135_e06.jpg",
+          "exposure_index": 6,
+          "applied_ev": 12.287712097167969,
+          "hdr_probability": 0.9848489165306091,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_135_e07.jpg",
+          "exposure_index": 7,
+          "applied_ev": 11.287712097167969,
+          "hdr_probability": 0.9708796739578247,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_135_e08.jpg",
+          "exposure_index": 8,
+          "applied_ev": 10.287712097167969,
+          "hdr_probability": 0.9539212584495544,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_135_e09.jpg",
+          "exposure_index": 9,
+          "applied_ev": 9.38082218170166,
+          "hdr_probability": 0.9334168434143066,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_135_e10.jpg",
+          "exposure_index": 10,
+          "applied_ev": 8.38082218170166,
+          "hdr_probability": 0.854282796382904,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": true
+        },
+        {
+          "filename": "SIHDR_135_e11.jpg",
+          "exposure_index": 11,
+          "applied_ev": 7.380821704864502,
+          "hdr_probability": 0.7431297898292542,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_135_e12.jpg",
+          "exposure_index": 12,
+          "applied_ev": 6.321928024291992,
+          "hdr_probability": 0.6715583801269531,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_135_e13.jpg",
+          "exposure_index": 13,
+          "applied_ev": 5.321928024291992,
+          "hdr_probability": 0.6266318559646606,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_135_e14.jpg",
+          "exposure_index": 14,
+          "applied_ev": 4.321928024291992,
+          "hdr_probability": 0.6206327080726624,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        }
+      ]
+    },
+    {
+      "scene_id": "SIHDR_145",
+      "time_index": 134,
+      "target_hdr_enable": 1,
+      "hdr_probability": 0.8529356122016907,
+      "decision_threshold": 0.6008205711841583,
+      "predicted_hdr_enable": 1,
+      "correct": 1,
+      "probability_margin": 0.25211504101753235,
+      "operating_filename": "SIHDR_145_e07.jpg",
+      "operating_exposure_index": 7,
+      "operating_applied_ev": 11.287712097167969,
+      "target_ev": 11.287712097167969,
+      "distance_to_target_ev": 0.0,
+      "bracket_wrong_count": 5,
+      "bracket_count": 15,
+      "bracket": [
+        {
+          "filename": "SIHDR_145_e00.jpg",
+          "exposure_index": 0,
+          "applied_ev": 17.194602966308594,
+          "hdr_probability": 0.9918388724327087,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_145_e01.jpg",
+          "exposure_index": 1,
+          "applied_ev": 16.28771209716797,
+          "hdr_probability": 0.9872444272041321,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_145_e02.jpg",
+          "exposure_index": 2,
+          "applied_ev": 15.872674942016602,
+          "hdr_probability": 0.9843106269836426,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_145_e03.jpg",
+          "exposure_index": 3,
+          "applied_ev": 15.287712097167969,
+          "hdr_probability": 0.9785565137863159,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_145_e04.jpg",
+          "exposure_index": 4,
+          "applied_ev": 14.287712097167969,
+          "hdr_probability": 0.96294105052948,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_145_e05.jpg",
+          "exposure_index": 5,
+          "applied_ev": 13.287712097167969,
+          "hdr_probability": 0.9384825825691223,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_145_e06.jpg",
+          "exposure_index": 6,
+          "applied_ev": 12.287712097167969,
+          "hdr_probability": 0.9024087190628052,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_145_e07.jpg",
+          "exposure_index": 7,
+          "applied_ev": 11.287712097167969,
+          "hdr_probability": 0.8529356122016907,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": true
+        },
+        {
+          "filename": "SIHDR_145_e08.jpg",
+          "exposure_index": 8,
+          "applied_ev": 10.287712097167969,
+          "hdr_probability": 0.7406590580940247,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_145_e09.jpg",
+          "exposure_index": 9,
+          "applied_ev": 9.38082218170166,
+          "hdr_probability": 0.6502391695976257,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_145_e10.jpg",
+          "exposure_index": 10,
+          "applied_ev": 8.38082218170166,
+          "hdr_probability": 0.5990541577339172,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_145_e11.jpg",
+          "exposure_index": 11,
+          "applied_ev": 7.380821704864502,
+          "hdr_probability": 0.5688673853874207,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_145_e12.jpg",
+          "exposure_index": 12,
+          "applied_ev": 6.321928024291992,
+          "hdr_probability": 0.5583108067512512,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_145_e13.jpg",
+          "exposure_index": 13,
+          "applied_ev": 5.321928024291992,
+          "hdr_probability": 0.5371363759040833,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_145_e14.jpg",
+          "exposure_index": 14,
+          "applied_ev": 4.321928024291992,
+          "hdr_probability": 0.5398396253585815,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        }
+      ]
+    },
+    {
+      "scene_id": "SIHDR_151",
+      "time_index": 140,
+      "target_hdr_enable": 1,
+      "hdr_probability": 0.6990340948104858,
+      "decision_threshold": 0.6008205711841583,
+      "predicted_hdr_enable": 1,
+      "correct": 1,
+      "probability_margin": 0.09821352362632751,
+      "operating_filename": "SIHDR_151_e10.jpg",
+      "operating_exposure_index": 10,
+      "operating_applied_ev": 8.38082218170166,
+      "target_ev": 8.38082218170166,
+      "distance_to_target_ev": 0.0,
+      "bracket_wrong_count": 3,
+      "bracket_count": 15,
+      "bracket": [
+        {
+          "filename": "SIHDR_151_e00.jpg",
+          "exposure_index": 0,
+          "applied_ev": 17.194602966308594,
+          "hdr_probability": 0.9950506091117859,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_151_e01.jpg",
+          "exposure_index": 1,
+          "applied_ev": 16.28771209716797,
+          "hdr_probability": 0.994979202747345,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_151_e02.jpg",
+          "exposure_index": 2,
+          "applied_ev": 15.872674942016602,
+          "hdr_probability": 0.9948264956474304,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_151_e03.jpg",
+          "exposure_index": 3,
+          "applied_ev": 15.287712097167969,
+          "hdr_probability": 0.9943713545799255,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_151_e04.jpg",
+          "exposure_index": 4,
+          "applied_ev": 14.287712097167969,
+          "hdr_probability": 0.9920530319213867,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_151_e05.jpg",
+          "exposure_index": 5,
+          "applied_ev": 13.287712097167969,
+          "hdr_probability": 0.9856777787208557,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_151_e06.jpg",
+          "exposure_index": 6,
+          "applied_ev": 12.287712097167969,
+          "hdr_probability": 0.9721489548683167,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_151_e07.jpg",
+          "exposure_index": 7,
+          "applied_ev": 11.287712097167969,
+          "hdr_probability": 0.9467401504516602,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_151_e08.jpg",
+          "exposure_index": 8,
+          "applied_ev": 10.287712097167969,
+          "hdr_probability": 0.8943246006965637,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_151_e09.jpg",
+          "exposure_index": 9,
+          "applied_ev": 9.38082218170166,
+          "hdr_probability": 0.7974426746368408,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_151_e10.jpg",
+          "exposure_index": 10,
+          "applied_ev": 8.38082218170166,
+          "hdr_probability": 0.6990340948104858,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": true
+        },
+        {
+          "filename": "SIHDR_151_e11.jpg",
+          "exposure_index": 11,
+          "applied_ev": 7.380821704864502,
+          "hdr_probability": 0.6306648254394531,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_151_e12.jpg",
+          "exposure_index": 12,
+          "applied_ev": 6.321928024291992,
+          "hdr_probability": 0.5947499871253967,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_151_e13.jpg",
+          "exposure_index": 13,
+          "applied_ev": 5.321928024291992,
+          "hdr_probability": 0.5619873404502869,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_151_e14.jpg",
+          "exposure_index": 14,
+          "applied_ev": 4.321928024291992,
+          "hdr_probability": 0.5476574301719666,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        }
+      ]
+    },
+    {
+      "scene_id": "SIHDR_164",
+      "time_index": 152,
+      "target_hdr_enable": 1,
+      "hdr_probability": 0.6302214860916138,
+      "decision_threshold": 0.6008205711841583,
+      "predicted_hdr_enable": 1,
+      "correct": 1,
+      "probability_margin": 0.029400914907455444,
+      "operating_filename": "SIHDR_164_e01.jpg",
+      "operating_exposure_index": 1,
+      "operating_applied_ev": 16.28771209716797,
+      "target_ev": 16.28771209716797,
+      "distance_to_target_ev": 0.0,
+      "bracket_wrong_count": 12,
+      "bracket_count": 15,
+      "bracket": [
+        {
+          "filename": "SIHDR_164_e00.jpg",
+          "exposure_index": 0,
+          "applied_ev": 17.194602966308594,
+          "hdr_probability": 0.7078319787979126,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_164_e01.jpg",
+          "exposure_index": 1,
+          "applied_ev": 16.28771209716797,
+          "hdr_probability": 0.6302214860916138,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": true
+        },
+        {
+          "filename": "SIHDR_164_e02.jpg",
+          "exposure_index": 2,
+          "applied_ev": 15.872674942016602,
+          "hdr_probability": 0.604827880859375,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_164_e03.jpg",
+          "exposure_index": 3,
+          "applied_ev": 15.287712097167969,
+          "hdr_probability": 0.5726478099822998,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_164_e04.jpg",
+          "exposure_index": 4,
+          "applied_ev": 14.287712097167969,
+          "hdr_probability": 0.5363180041313171,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_164_e05.jpg",
+          "exposure_index": 5,
+          "applied_ev": 13.287712097167969,
+          "hdr_probability": 0.5093180537223816,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_164_e06.jpg",
+          "exposure_index": 6,
+          "applied_ev": 12.287712097167969,
+          "hdr_probability": 0.4984520971775055,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_164_e07.jpg",
+          "exposure_index": 7,
+          "applied_ev": 11.287712097167969,
+          "hdr_probability": 0.49353474378585815,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_164_e08.jpg",
+          "exposure_index": 8,
+          "applied_ev": 10.287712097167969,
+          "hdr_probability": 0.49465373158454895,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_164_e09.jpg",
+          "exposure_index": 9,
+          "applied_ev": 9.38082218170166,
+          "hdr_probability": 0.4982784390449524,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_164_e10.jpg",
+          "exposure_index": 10,
+          "applied_ev": 8.38082218170166,
+          "hdr_probability": 0.5039979219436646,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_164_e11.jpg",
+          "exposure_index": 11,
+          "applied_ev": 7.380821704864502,
+          "hdr_probability": 0.5117324590682983,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_164_e12.jpg",
+          "exposure_index": 12,
+          "applied_ev": 6.321928024291992,
+          "hdr_probability": 0.5198602676391602,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_164_e13.jpg",
+          "exposure_index": 13,
+          "applied_ev": 5.321928024291992,
+          "hdr_probability": 0.5276948809623718,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_164_e14.jpg",
+          "exposure_index": 14,
+          "applied_ev": 4.321928024291992,
+          "hdr_probability": 0.5352535843849182,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        }
+      ]
+    },
+    {
+      "scene_id": "SIHDR_178",
+      "time_index": 166,
+      "target_hdr_enable": 1,
+      "hdr_probability": 0.7225190997123718,
+      "decision_threshold": 0.6008205711841583,
+      "predicted_hdr_enable": 1,
+      "correct": 1,
+      "probability_margin": 0.1216985285282135,
+      "operating_filename": "SIHDR_178_e06.jpg",
+      "operating_exposure_index": 6,
+      "operating_applied_ev": 12.287712097167969,
+      "target_ev": 12.287712097167969,
+      "distance_to_target_ev": 0.0,
+      "bracket_wrong_count": 7,
+      "bracket_count": 15,
+      "bracket": [
+        {
+          "filename": "SIHDR_178_e00.jpg",
+          "exposure_index": 0,
+          "applied_ev": 17.194602966308594,
+          "hdr_probability": 0.9897192716598511,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_178_e01.jpg",
+          "exposure_index": 1,
+          "applied_ev": 16.28771209716797,
+          "hdr_probability": 0.9864745736122131,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_178_e02.jpg",
+          "exposure_index": 2,
+          "applied_ev": 15.872674942016602,
+          "hdr_probability": 0.9835130572319031,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_178_e03.jpg",
+          "exposure_index": 3,
+          "applied_ev": 15.287712097167969,
+          "hdr_probability": 0.9739474058151245,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_178_e04.jpg",
+          "exposure_index": 4,
+          "applied_ev": 14.287712097167969,
+          "hdr_probability": 0.9306374788284302,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_178_e05.jpg",
+          "exposure_index": 5,
+          "applied_ev": 13.287712097167969,
+          "hdr_probability": 0.8426190614700317,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_178_e06.jpg",
+          "exposure_index": 6,
+          "applied_ev": 12.287712097167969,
+          "hdr_probability": 0.7225190997123718,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": true
+        },
+        {
+          "filename": "SIHDR_178_e07.jpg",
+          "exposure_index": 7,
+          "applied_ev": 11.287712097167969,
+          "hdr_probability": 0.6541253328323364,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_178_e08.jpg",
+          "exposure_index": 8,
+          "applied_ev": 10.287712097167969,
+          "hdr_probability": 0.5865545272827148,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_178_e09.jpg",
+          "exposure_index": 9,
+          "applied_ev": 9.38082218170166,
+          "hdr_probability": 0.55573570728302,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_178_e10.jpg",
+          "exposure_index": 10,
+          "applied_ev": 8.38082218170166,
+          "hdr_probability": 0.5270773768424988,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_178_e11.jpg",
+          "exposure_index": 11,
+          "applied_ev": 7.380821704864502,
+          "hdr_probability": 0.5215196013450623,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_178_e12.jpg",
+          "exposure_index": 12,
+          "applied_ev": 6.321928024291992,
+          "hdr_probability": 0.5241789221763611,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_178_e13.jpg",
+          "exposure_index": 13,
+          "applied_ev": 5.321928024291992,
+          "hdr_probability": 0.5297714471817017,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_178_e14.jpg",
+          "exposure_index": 14,
+          "applied_ev": 4.321928024291992,
+          "hdr_probability": 0.5362561345100403,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        }
+      ]
+    },
+    {
+      "scene_id": "SIHDR_182",
+      "time_index": 170,
+      "target_hdr_enable": 1,
+      "hdr_probability": 0.7541266083717346,
+      "decision_threshold": 0.6008205711841583,
+      "predicted_hdr_enable": 1,
+      "correct": 1,
+      "probability_margin": 0.1533060371875763,
+      "operating_filename": "SIHDR_182_e07.jpg",
+      "operating_exposure_index": 7,
+      "operating_applied_ev": 11.287712097167969,
+      "target_ev": 11.287712097167969,
+      "distance_to_target_ev": 0.0,
+      "bracket_wrong_count": 5,
+      "bracket_count": 15,
+      "bracket": [
+        {
+          "filename": "SIHDR_182_e00.jpg",
+          "exposure_index": 0,
+          "applied_ev": 17.194602966308594,
+          "hdr_probability": 0.9934418201446533,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_182_e01.jpg",
+          "exposure_index": 1,
+          "applied_ev": 16.28771209716797,
+          "hdr_probability": 0.9908108711242676,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_182_e02.jpg",
+          "exposure_index": 2,
+          "applied_ev": 15.872674942016602,
+          "hdr_probability": 0.9893671870231628,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_182_e03.jpg",
+          "exposure_index": 3,
+          "applied_ev": 15.287712097167969,
+          "hdr_probability": 0.9870707392692566,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_182_e04.jpg",
+          "exposure_index": 4,
+          "applied_ev": 14.287712097167969,
+          "hdr_probability": 0.9773926138877869,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_182_e05.jpg",
+          "exposure_index": 5,
+          "applied_ev": 13.287712097167969,
+          "hdr_probability": 0.9470391869544983,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_182_e06.jpg",
+          "exposure_index": 6,
+          "applied_ev": 12.287712097167969,
+          "hdr_probability": 0.8737122416496277,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_182_e07.jpg",
+          "exposure_index": 7,
+          "applied_ev": 11.287712097167969,
+          "hdr_probability": 0.7541266083717346,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": true
+        },
+        {
+          "filename": "SIHDR_182_e08.jpg",
+          "exposure_index": 8,
+          "applied_ev": 10.287712097167969,
+          "hdr_probability": 0.6600624322891235,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_182_e09.jpg",
+          "exposure_index": 9,
+          "applied_ev": 9.38082218170166,
+          "hdr_probability": 0.6090289354324341,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_182_e10.jpg",
+          "exposure_index": 10,
+          "applied_ev": 8.38082218170166,
+          "hdr_probability": 0.5764736533164978,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_182_e11.jpg",
+          "exposure_index": 11,
+          "applied_ev": 7.380821704864502,
+          "hdr_probability": 0.5494180917739868,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_182_e12.jpg",
+          "exposure_index": 12,
+          "applied_ev": 6.321928024291992,
+          "hdr_probability": 0.5292963981628418,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_182_e13.jpg",
+          "exposure_index": 13,
+          "applied_ev": 5.321928024291992,
+          "hdr_probability": 0.5322758555412292,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_182_e14.jpg",
+          "exposure_index": 14,
+          "applied_ev": 4.321928024291992,
+          "hdr_probability": 0.5375603437423706,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        }
+      ]
+    },
+    {
+      "scene_id": "SIHDR_187",
+      "time_index": 174,
+      "target_hdr_enable": 1,
+      "hdr_probability": 0.7133091688156128,
+      "decision_threshold": 0.6008205711841583,
+      "predicted_hdr_enable": 1,
+      "correct": 1,
+      "probability_margin": 0.11248859763145447,
+      "operating_filename": "SIHDR_187_e04.jpg",
+      "operating_exposure_index": 4,
+      "operating_applied_ev": 14.287712097167969,
+      "target_ev": 14.287712097167969,
+      "distance_to_target_ev": 0.0,
+      "bracket_wrong_count": 9,
+      "bracket_count": 15,
+      "bracket": [
+        {
+          "filename": "SIHDR_187_e00.jpg",
+          "exposure_index": 0,
+          "applied_ev": 17.194602966308594,
+          "hdr_probability": 0.8946611881256104,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_187_e01.jpg",
+          "exposure_index": 1,
+          "applied_ev": 16.28771209716797,
+          "hdr_probability": 0.8530893921852112,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_187_e02.jpg",
+          "exposure_index": 2,
+          "applied_ev": 15.872674942016602,
+          "hdr_probability": 0.8278601169586182,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_187_e03.jpg",
+          "exposure_index": 3,
+          "applied_ev": 15.287712097167969,
+          "hdr_probability": 0.7851857542991638,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_187_e04.jpg",
+          "exposure_index": 4,
+          "applied_ev": 14.287712097167969,
+          "hdr_probability": 0.7133091688156128,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": true
+        },
+        {
+          "filename": "SIHDR_187_e05.jpg",
+          "exposure_index": 5,
+          "applied_ev": 13.287712097167969,
+          "hdr_probability": 0.6188767552375793,
+          "predicted_hdr_enable": 1,
+          "correct": 1,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_187_e06.jpg",
+          "exposure_index": 6,
+          "applied_ev": 12.287712097167969,
+          "hdr_probability": 0.5644341707229614,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_187_e07.jpg",
+          "exposure_index": 7,
+          "applied_ev": 11.287712097167969,
+          "hdr_probability": 0.5375242829322815,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_187_e08.jpg",
+          "exposure_index": 8,
+          "applied_ev": 10.287712097167969,
+          "hdr_probability": 0.5229511857032776,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_187_e09.jpg",
+          "exposure_index": 9,
+          "applied_ev": 9.38082218170166,
+          "hdr_probability": 0.5149279236793518,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_187_e10.jpg",
+          "exposure_index": 10,
+          "applied_ev": 8.38082218170166,
+          "hdr_probability": 0.5090265274047852,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_187_e11.jpg",
+          "exposure_index": 11,
+          "applied_ev": 7.380821704864502,
+          "hdr_probability": 0.5143813490867615,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_187_e12.jpg",
+          "exposure_index": 12,
+          "applied_ev": 6.321928024291992,
+          "hdr_probability": 0.5212087035179138,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_187_e13.jpg",
+          "exposure_index": 13,
+          "applied_ev": 5.321928024291992,
+          "hdr_probability": 0.5283132791519165,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        },
+        {
+          "filename": "SIHDR_187_e14.jpg",
+          "exposure_index": 14,
+          "applied_ev": 4.321928024291992,
+          "hdr_probability": 0.5355654954910278,
+          "predicted_hdr_enable": 0,
+          "correct": 0,
+          "is_operating_frame": false
+        }
+      ]
+    }
+  ]
+}

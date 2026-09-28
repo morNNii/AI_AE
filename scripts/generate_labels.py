@@ -13,12 +13,14 @@ import numpy as np
 
 FRAME_FIELDS = [
     "scene_id", "filename", "frame_index", "exposure_time_us",
-    "sensor_gain_code", "isp_gain_code", "hdr_mode",
+    "sensor_gain_code", "isp_gain_code", "hdr_mode", "time_index",
+    "exposure_index", "iso", "aperture",
 ]
 ANNOTATION_FIELDS = [
     "scene_id", "preferred_filename", "acceptable_min_filename",
     "acceptable_max_filename", "hdr_benefit_if_static",
     "hdr_enable_if_static", "hdr_ratio_class", "hdr_anchor_filename",
+    "hdr_reviewed", "hdr_label_confidence", "hdr_notes",
     "label_confidence", "label_source",
 ]
 
@@ -58,6 +60,10 @@ def initialize(input_dir: Path, draft_dir: Path, image_glob: str) -> None:
                 "sensor_gain_code": "",
                 "isp_gain_code": "1024",
                 "hdr_mode": "SDR",
+                "time_index": "",
+                "exposure_index": "",
+                "iso": "",
+                "aperture": "",
             })
         annotation_rows.append({
             "scene_id": pattern.name,
@@ -68,6 +74,9 @@ def initialize(input_dir: Path, draft_dir: Path, image_glob: str) -> None:
             "hdr_enable_if_static": "",
             "hdr_ratio_class": "",
             "hdr_anchor_filename": "",
+            "hdr_reviewed": "",
+            "hdr_label_confidence": "",
+            "hdr_notes": "",
             "label_confidence": "",
             "label_source": "human_review",
         })
@@ -153,6 +162,23 @@ def build(draft_dir: Path, output_dir: Path, config_path: Path) -> None:
             raise ValueError(f"{scene}: hdr_benefit_if_static 必須在 0~1")
         if hdr_enable is not None and hdr_enable not in (0, 1):
             raise ValueError(f"{scene}: hdr_enable_if_static 必須是 0 或 1")
+        if hdr_ratio is not None and int(hdr_ratio) not in config["ratio_classes"]:
+            raise ValueError(
+                f"{scene}: hdr_ratio_class 必須是 {config['ratio_classes']} 其中之一"
+            )
+        if hdr_ratio is not None and hdr_enable != 1:
+            raise ValueError(f"{scene}: 只有 HDR enable=1 才能設定 ratio")
+        if hdr_anchor is not None and hdr_enable != 1:
+            raise ValueError(f"{scene}: 只有 HDR enable=1 才能設定 anchor")
+        hdr_reviewed = ann.get("hdr_reviewed", "").strip() == "1"
+        if hdr_reviewed and hdr_benefit is None:
+            raise ValueError(f"{scene}: HDR 已確認但 hdr_benefit_if_static 留白")
+        if hdr_reviewed and hdr_benefit is not None:
+            expected_enable = None if hdr_benefit == 0.5 else int(hdr_benefit >= 0.75)
+            if hdr_enable != expected_enable:
+                raise ValueError(
+                    f"{scene}: hdr_benefit_if_static 與 hdr_enable_if_static 不一致"
+                )
         if confidence is not None and not 0 <= confidence <= 1:
             raise ValueError(f"{scene}: label_confidence 必須在 0~1")
 

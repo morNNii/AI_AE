@@ -1,0 +1,35 @@
+{
+  "status": "CANDIDATE_READY",
+  "source_scene_count": 181,
+  "included_scene_count": 181,
+  "ev_supervised_scene_count": 117,
+  "ev_masked_boundary_scene_count": 64,
+  "hdr_retained_boundary_scene_count": 64,
+  "training_sample_count": 2715,
+  "split_scene_counts": {
+    "train": 127,
+    "validation": 27,
+    "test": 27
+  },
+  "split_hdr_counts": {
+    "train": {
+      "on": 86,
+      "off": 15,
+      "unknown": 26
+    },
+    "validation": {
+      "on": 19,
+      "unknown": 5,
+      "off": 3
+    },
+    "test": {
+      "on": 19,
+      "unknown": 5,
+      "off": 3
+    }
+  },
+  "features": "outputs\\sihdr_prepared\\features.npz",
+  "labels": "labels\\sihdr_generated_candidate\\training_samples.csv",
+  "split_assignments": "labels\\sihdr_generated_candidate\\split_assignments.csv",
+  "warning": "All SDR targets and HDR decisions are radiance-derived heuristics. Boundary scenes remain available to the HDR head but are masked from the EV loss. This candidate requires human review before formal use."
+}

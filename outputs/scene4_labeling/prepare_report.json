@@ -1,0 +1,13 @@
+{
+  "status": "READY_FOR_LABEL_BUILD",
+  "input": "input\\Scene4",
+  "dng_count": 1500,
+  "time_step_count": 100,
+  "exposures_per_time_step": 15,
+  "human_reviewed_time_steps": 100,
+  "preview_series": 2,
+  "feature_cache": "outputs\\scene4_labeling\\features.npz",
+  "contact_sheets": "outputs\\scene4_labeling\\contact_sheets",
+  "annotation_csv": "labels\\scene4_draft\\scene_annotations.csv",
+  "note": "All time steps are human-reviewed."
+}

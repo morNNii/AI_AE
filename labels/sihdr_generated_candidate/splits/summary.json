@@ -1,0 +1,23 @@
+{
+  "train": {
+    "path": "labels\\sihdr_generated_candidate\\splits\\train.csv",
+    "sample_count": 1905,
+    "time_step_count": 127,
+    "time_index_min": 0,
+    "time_index_max": 180
+  },
+  "validation": {
+    "path": "labels\\sihdr_generated_candidate\\splits\\validation.csv",
+    "sample_count": 405,
+    "time_step_count": 27,
+    "time_index_min": 2,
+    "time_index_max": 170
+  },
+  "test": {
+    "path": "labels\\sihdr_generated_candidate\\splits\\test.csv",
+    "sample_count": 405,
+    "time_step_count": 27,
+    "time_index_min": 3,
+    "time_index_max": 179
+  }
+}

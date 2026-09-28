@@ -1,0 +1,244 @@
+{
+  "status": "PASS",
+  "version": "sihdr-hdr-v0-candidate",
+  "dataset": "SI-HDR",
+  "split": "test",
+  "sample_count": 360,
+  "time_step_count": 24,
+  "mae_ev": 1.001731562614441,
+  "median_absolute_error_ev": 0.7943811416625977,
+  "p90_absolute_error_ev": 2.1066419601440436,
+  "max_absolute_error_ev": 4.476240158081055,
+  "outside_acceptable_count": 171,
+  "within_acceptable_percent": 52.5,
+  "worst_sample": {
+    "scene_id": "SIHDR_151",
+    "filename": "SIHDR_151_e14.jpg",
+    "time_index": 140,
+    "exposure_index": 14,
+    "target_ev": 8.38082218170166,
+    "predicted_target_ev": 12.857062339782715,
+    "absolute_error_ev": 4.476240158081055,
+    "acceptable_min_ev": 8.38082218170166,
+    "acceptable_max_ev": 9.38082218170166
+  },
+  "report_html": "outputs\\sihdr_training_hdr_v0_candidate\\test_inference_report.html",
+  "time_steps": [
+    {
+      "scene_id": "SIHDR_151",
+      "time_index": 140,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 1.677857526143392,
+      "max_absolute_error_ev": 4.476240158081055,
+      "outside_acceptable_count": 11,
+      "worst_filename": "SIHDR_151_e14.jpg"
+    },
+    {
+      "scene_id": "SIHDR_068",
+      "time_index": 61,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 1.5152651468912761,
+      "max_absolute_error_ev": 3.8005151748657227,
+      "outside_acceptable_count": 12,
+      "worst_filename": "SIHDR_068_e14.jpg"
+    },
+    {
+      "scene_id": "SIHDR_150",
+      "time_index": 139,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 0.9885330200195312,
+      "max_absolute_error_ev": 3.6172962188720703,
+      "outside_acceptable_count": 10,
+      "worst_filename": "SIHDR_150_e14.jpg"
+    },
+    {
+      "scene_id": "SIHDR_057",
+      "time_index": 51,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 1.0314182917277017,
+      "max_absolute_error_ev": 2.946989059448242,
+      "outside_acceptable_count": 6,
+      "worst_filename": "SIHDR_057_e13.jpg"
+    },
+    {
+      "scene_id": "SIHDR_192",
+      "time_index": 177,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 1.297773551940918,
+      "max_absolute_error_ev": 2.9301576614379883,
+      "outside_acceptable_count": 3,
+      "worst_filename": "SIHDR_192_e14.jpg"
+    },
+    {
+      "scene_id": "SIHDR_029",
+      "time_index": 24,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 0.9084885279337566,
+      "max_absolute_error_ev": 2.8665084838867188,
+      "outside_acceptable_count": 9,
+      "worst_filename": "SIHDR_029_e14.jpg"
+    },
+    {
+      "scene_id": "SIHDR_063",
+      "time_index": 57,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 1.1075454076131186,
+      "max_absolute_error_ev": 2.847140312194824,
+      "outside_acceptable_count": 13,
+      "worst_filename": "SIHDR_063_e14.jpg"
+    },
+    {
+      "scene_id": "SIHDR_025",
+      "time_index": 21,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 1.4110829035441081,
+      "max_absolute_error_ev": 2.8453779220581055,
+      "outside_acceptable_count": 11,
+      "worst_filename": "SIHDR_025_e14.jpg"
+    },
+    {
+      "scene_id": "SIHDR_110",
+      "time_index": 100,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 0.905804189046224,
+      "max_absolute_error_ev": 2.8397817611694336,
+      "outside_acceptable_count": 9,
+      "worst_filename": "SIHDR_110_e14.jpg"
+    },
+    {
+      "scene_id": "SIHDR_164",
+      "time_index": 152,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 0.8343428293863933,
+      "max_absolute_error_ev": 2.835078239440918,
+      "outside_acceptable_count": 8,
+      "worst_filename": "SIHDR_164_e14.jpg"
+    },
+    {
+      "scene_id": "SIHDR_167",
+      "time_index": 155,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 0.80020751953125,
+      "max_absolute_error_ev": 2.834784507751465,
+      "outside_acceptable_count": 6,
+      "worst_filename": "SIHDR_167_e14.jpg"
+    },
+    {
+      "scene_id": "SIHDR_163",
+      "time_index": 151,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 0.8362475077311198,
+      "max_absolute_error_ev": 2.8339719772338867,
+      "outside_acceptable_count": 6,
+      "worst_filename": "SIHDR_163_e14.jpg"
+    },
+    {
+      "scene_id": "SIHDR_182",
+      "time_index": 170,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 0.9846380233764649,
+      "max_absolute_error_ev": 2.779804229736328,
+      "outside_acceptable_count": 15,
+      "worst_filename": "SIHDR_182_e12.jpg"
+    },
+    {
+      "scene_id": "SIHDR_003",
+      "time_index": 2,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 1.2177064259847006,
+      "max_absolute_error_ev": 2.7727060317993164,
+      "outside_acceptable_count": 7,
+      "worst_filename": "SIHDR_003_e12.jpg"
+    },
+    {
+      "scene_id": "SIHDR_084",
+      "time_index": 77,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 1.6091648101806642,
+      "max_absolute_error_ev": 2.54293155670166,
+      "outside_acceptable_count": 0,
+      "worst_filename": "SIHDR_084_e05.jpg"
+    },
+    {
+      "scene_id": "SIHDR_086",
+      "time_index": 79,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 1.2406365712483725,
+      "max_absolute_error_ev": 2.284489631652832,
+      "outside_acceptable_count": 4,
+      "worst_filename": "SIHDR_086_e05.jpg"
+    },
+    {
+      "scene_id": "SIHDR_145",
+      "time_index": 134,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 0.6040990829467774,
+      "max_absolute_error_ev": 2.2807188034057617,
+      "outside_acceptable_count": 6,
+      "worst_filename": "SIHDR_145_e13.jpg"
+    },
+    {
+      "scene_id": "SIHDR_178",
+      "time_index": 166,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 1.170038096110026,
+      "max_absolute_error_ev": 2.2463932037353516,
+      "outside_acceptable_count": 9,
+      "worst_filename": "SIHDR_178_e11.jpg"
+    },
+    {
+      "scene_id": "SIHDR_060",
+      "time_index": 54,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 0.9024839401245117,
+      "max_absolute_error_ev": 1.9594945907592773,
+      "outside_acceptable_count": 0,
+      "worst_filename": "SIHDR_060_e13.jpg"
+    },
+    {
+      "scene_id": "SIHDR_001",
+      "time_index": 0,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 1.0107414881388346,
+      "max_absolute_error_ev": 1.7337455749511719,
+      "outside_acceptable_count": 1,
+      "worst_filename": "SIHDR_001_e14.jpg"
+    },
+    {
+      "scene_id": "SIHDR_135",
+      "time_index": 124,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 0.553943951924642,
+      "max_absolute_error_ev": 1.678441047668457,
+      "outside_acceptable_count": 9,
+      "worst_filename": "SIHDR_135_e00.jpg"
+    },
+    {
+      "scene_id": "SIHDR_124",
+      "time_index": 114,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 0.4658666610717773,
+      "max_absolute_error_ev": 1.2884769439697266,
+      "outside_acceptable_count": 10,
+      "worst_filename": "SIHDR_124_e14.jpg"
+    },
+    {
+      "scene_id": "SIHDR_082",
+      "time_index": 75,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 0.620860226949056,
+      "max_absolute_error_ev": 1.0483760833740234,
+      "outside_acceptable_count": 0,
+      "worst_filename": "SIHDR_082_e11.jpg"
+    },
+    {
+      "scene_id": "SIHDR_187",
+      "time_index": 174,
+      "sample_count": 15,
+      "mean_absolute_error_ev": 0.34681180318196614,
+      "max_absolute_error_ev": 0.9397220611572266,
+      "outside_acceptable_count": 6,
+      "worst_filename": "SIHDR_187_e10.jpg"
+    }
+  ]
+}

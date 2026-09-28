@@ -1,0 +1,23 @@
+{
+  "train": {
+    "path": "labels\\scene4_generated\\splits\\train.csv",
+    "sample_count": 1050,
+    "time_step_count": 70,
+    "time_index_min": 0,
+    "time_index_max": 69
+  },
+  "validation": {
+    "path": "labels\\scene4_generated\\splits\\validation.csv",
+    "sample_count": 225,
+    "time_step_count": 15,
+    "time_index_min": 70,
+    "time_index_max": 84
+  },
+  "test": {
+    "path": "labels\\scene4_generated\\splits\\test.csv",
+    "sample_count": 225,
+    "time_step_count": 15,
+    "time_index_min": 85,
+    "time_index_max": 99
+  }
+}

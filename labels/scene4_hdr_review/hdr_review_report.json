@@ -1,0 +1,13 @@
+{
+  "status": "READY_FOR_HDR_HUMAN_REVIEW",
+  "scene_count": 100,
+  "hdr_reviewed_count": 0,
+  "source_sdr_labels": "labels\\scene4_draft\\scene_annotations.csv",
+  "hdr_review_labels": "labels\\scene4_hdr_review\\scene_annotations.csv",
+  "policy": {
+    "benefit_0_or_0.25": "HDR off",
+    "benefit_0.5": "ambiguous; enable missing and loss masked",
+    "benefit_0.75_or_1": "HDR on",
+    "ratio_and_anchor": "leave missing until real or simulated HDR outputs exist"
+  }
+}

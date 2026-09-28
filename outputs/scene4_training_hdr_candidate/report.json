@@ -1,0 +1,375 @@
+{
+  "status": "PASS",
+  "version": "0-hdr-candidate",
+  "input_domain": "DNG embedded preview series 2",
+  "sample_count": 1500,
+  "time_step_count": 100,
+  "feature_dim": 101,
+  "epochs": 1200,
+  "split": {
+    "train": "t000-t069",
+    "validation": "t070-t084",
+    "test": "t085-t099"
+  },
+  "data_manifests": {
+    "train": {
+      "path": "labels\\scene4_generated_hdr_candidate\\splits\\train.csv",
+      "sample_count": 1050,
+      "time_step_count": 70,
+      "time_index_min": 0,
+      "time_index_max": 69
+    },
+    "validation": {
+      "path": "labels\\scene4_generated_hdr_candidate\\splits\\validation.csv",
+      "sample_count": 225,
+      "time_step_count": 15,
+      "time_index_min": 70,
+      "time_index_max": 84
+    },
+    "test": {
+      "path": "labels\\scene4_generated_hdr_candidate\\splits\\test.csv",
+      "sample_count": 225,
+      "time_step_count": 15,
+      "time_index_min": 85,
+      "time_index_max": 99
+    }
+  },
+  "loss_definition": "EV MSE + 0.2 * masked HDR BCE + 0.2 * masked ratio CE + 0.1 * confidence BCE",
+  "loss_history_csv": "outputs\\scene4_training_hdr_candidate\\loss_history.csv",
+  "best_validation_checkpoint": "outputs\\scene4_training_hdr_candidate\\model_best_validation.npz",
+  "initial_loss": 172.00569219098773,
+  "final_loss": 0.32803567569596426,
+  "initial_validation_loss": 184.13437308078343,
+  "final_validation_loss": 0.5242745324240791,
+  "overfit_assessment": {
+    "status": "still_improving",
+    "best_validation_epoch": 1200,
+    "best_validation_loss": 0.5242745324240791,
+    "final_validation_loss": 0.5242745324240791,
+    "final_train_loss": 0.32803567569596426,
+    "final_generalization_gap": 0.1962388567281148,
+    "final_vs_best_validation_percent": 0.0,
+    "last_10_percent_validation_change_percent": -1.8599165618074671,
+    "recommendation": "Validation loss 在訓練末段仍持續下降；可另開實驗小幅增加 epochs，但必須保留 validation 監控與最佳 checkpoint。"
+  },
+  "metrics": {
+    "train": {
+      "sample_count": 1050,
+      "mae_ev": 0.26385802030563354,
+      "rmse_ev": 0.41377192735671997,
+      "within_acceptable_interval": 0.9971428571428571,
+      "mean_interval_error_ev": 0.0007958757341839373
+    },
+    "validation": {
+      "sample_count": 225,
+      "mae_ev": 0.368945449590683,
+      "rmse_ev": 0.5549789667129517,
+      "within_acceptable_interval": 0.9911111111111112,
+      "mean_interval_error_ev": 0.0009718365035951138
+    },
+    "test": {
+      "sample_count": 225,
+      "mae_ev": 0.48560506105422974,
+      "rmse_ev": 0.6240708827972412,
+      "within_acceptable_interval": 0.96,
+      "mean_interval_error_ev": 0.007820104248821735
+    }
+  },
+  "hdr_metrics": {
+    "default_threshold": 0.5,
+    "validation_selected_threshold": 0.7880644798278809,
+    "threshold_selection": {
+      "split": "validation",
+      "aggregation": "one frame per time step nearest the SDR target EV",
+      "objective": "balanced_accuracy",
+      "threshold": 0.7880644798278809,
+      "balanced_accuracy": 1.0
+    },
+    "operating_point": {
+      "definition": "one frame per time step nearest the SDR target EV",
+      "metrics": {
+        "train": {
+          "sample_count": 70,
+          "positive_count": 50,
+          "negative_count": 20,
+          "bce": 0.5231469912188393,
+          "threshold": 0.7880644798278809,
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "specificity": 1.0,
+          "balanced_accuracy": 1.0,
+          "f1": 1.0,
+          "true_positive": 50,
+          "true_negative": 20,
+          "false_positive": 0,
+          "false_negative": 0
+        },
+        "validation": {
+          "sample_count": 15,
+          "positive_count": 5,
+          "negative_count": 10,
+          "bce": 0.972449051340421,
+          "threshold": 0.7880644798278809,
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "specificity": 1.0,
+          "balanced_accuracy": 1.0,
+          "f1": 1.0,
+          "true_positive": 5,
+          "true_negative": 10,
+          "false_positive": 0,
+          "false_negative": 0
+        },
+        "test": {
+          "sample_count": 15,
+          "positive_count": 10,
+          "negative_count": 5,
+          "bce": 0.5844083875417709,
+          "threshold": 0.7880644798278809,
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "specificity": 1.0,
+          "balanced_accuracy": 1.0,
+          "f1": 1.0,
+          "true_positive": 10,
+          "true_negative": 5,
+          "false_positive": 0,
+          "false_negative": 0
+        }
+      },
+      "predictions_csv": "outputs\\scene4_training_hdr_candidate\\hdr_predictions_at_target_ev.csv"
+    },
+    "all_samples_at_operating_threshold": {
+      "train": {
+        "sample_count": 1050,
+        "positive_count": 750,
+        "negative_count": 300,
+        "bce": 0.5287725578035627,
+        "threshold": 0.7880644798278809,
+        "accuracy": 0.5514285714285714,
+        "precision": 0.8177676537585421,
+        "recall": 0.4786666666666667,
+        "specificity": 0.7333333333333333,
+        "balanced_accuracy": 0.606,
+        "f1": 0.6038687973086627,
+        "true_positive": 359,
+        "true_negative": 220,
+        "false_positive": 80,
+        "false_negative": 391
+      },
+      "validation": {
+        "sample_count": 225,
+        "positive_count": 75,
+        "negative_count": 150,
+        "bce": 0.8239019594589869,
+        "threshold": 0.7880644798278809,
+        "accuracy": 0.6444444444444445,
+        "precision": 0.4666666666666667,
+        "recall": 0.4666666666666667,
+        "specificity": 0.7333333333333333,
+        "balanced_accuracy": 0.6,
+        "f1": 0.4666666666666667,
+        "true_positive": 35,
+        "true_negative": 110,
+        "false_positive": 40,
+        "false_negative": 40
+      },
+      "test": {
+        "sample_count": 225,
+        "positive_count": 150,
+        "negative_count": 75,
+        "bce": 0.5666755411359999,
+        "threshold": 0.7880644798278809,
+        "accuracy": 0.5866666666666667,
+        "precision": 0.7938144329896907,
+        "recall": 0.5133333333333333,
+        "specificity": 0.7333333333333333,
+        "balanced_accuracy": 0.6233333333333333,
+        "f1": 0.6234817813765182,
+        "true_positive": 77,
+        "true_negative": 55,
+        "false_positive": 20,
+        "false_negative": 73
+      }
+    },
+    "time_step_mean_diagnostic": {
+      "validation_selected_threshold": 0.6795825660228729,
+      "threshold_selection": {
+        "threshold": 0.6795825660228729,
+        "balanced_accuracy": 1.0
+      },
+      "metrics": {
+        "train": {
+          "sample_count": 70,
+          "positive_count": 50,
+          "negative_count": 20,
+          "bce": 0.4960348005805697,
+          "threshold": 0.6795825660228729,
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "specificity": 1.0,
+          "balanced_accuracy": 1.0,
+          "f1": 1.0,
+          "true_positive": 50,
+          "true_negative": 20,
+          "false_positive": 0,
+          "false_negative": 0
+        },
+        "validation": {
+          "sample_count": 15,
+          "positive_count": 5,
+          "negative_count": 10,
+          "bce": 0.7623739659786224,
+          "threshold": 0.6795825660228729,
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "specificity": 1.0,
+          "balanced_accuracy": 1.0,
+          "f1": 1.0,
+          "true_positive": 5,
+          "true_negative": 10,
+          "false_positive": 0,
+          "false_negative": 0
+        },
+        "test": {
+          "sample_count": 15,
+          "positive_count": 10,
+          "negative_count": 5,
+          "bce": 0.5292426109313965,
+          "threshold": 0.6795825660228729,
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "specificity": 1.0,
+          "balanced_accuracy": 1.0,
+          "f1": 1.0,
+          "true_positive": 10,
+          "true_negative": 5,
+          "false_positive": 0,
+          "false_negative": 0
+        }
+      },
+      "predictions_csv": "outputs\\scene4_training_hdr_candidate\\hdr_predictions_by_time_step.csv"
+    },
+    "samples_at_0_5": {
+      "train": {
+        "sample_count": 1050,
+        "positive_count": 750,
+        "negative_count": 300,
+        "bce": 0.5287725578035627,
+        "threshold": 0.5,
+        "accuracy": 0.8095238095238095,
+        "precision": 0.7894736842105263,
+        "recall": 1.0,
+        "specificity": 0.3333333333333333,
+        "balanced_accuracy": 0.6666666666666666,
+        "f1": 0.8823529411764706,
+        "true_positive": 750,
+        "true_negative": 100,
+        "false_positive": 200,
+        "false_negative": 0
+      },
+      "validation": {
+        "sample_count": 225,
+        "positive_count": 75,
+        "negative_count": 150,
+        "bce": 0.8239019594589869,
+        "threshold": 0.5,
+        "accuracy": 0.5555555555555556,
+        "precision": 0.42857142857142855,
+        "recall": 1.0,
+        "specificity": 0.3333333333333333,
+        "balanced_accuracy": 0.6666666666666666,
+        "f1": 0.6,
+        "true_positive": 75,
+        "true_negative": 50,
+        "false_positive": 100,
+        "false_negative": 0
+      },
+      "test": {
+        "sample_count": 225,
+        "positive_count": 150,
+        "negative_count": 75,
+        "bce": 0.5666755411359999,
+        "threshold": 0.5,
+        "accuracy": 0.7777777777777778,
+        "precision": 0.75,
+        "recall": 1.0,
+        "specificity": 0.3333333333333333,
+        "balanced_accuracy": 0.6666666666666666,
+        "f1": 0.8571428571428571,
+        "true_positive": 150,
+        "true_negative": 25,
+        "false_positive": 50,
+        "false_negative": 0
+      }
+    },
+    "time_steps_at_0_5": {
+      "train": {
+        "sample_count": 70,
+        "positive_count": 50,
+        "negative_count": 20,
+        "bce": 0.4960348005805697,
+        "threshold": 0.5,
+        "accuracy": 0.7142857142857143,
+        "precision": 0.7142857142857143,
+        "recall": 1.0,
+        "specificity": 0.0,
+        "balanced_accuracy": 0.5,
+        "f1": 0.8333333333333333,
+        "true_positive": 50,
+        "true_negative": 0,
+        "false_positive": 20,
+        "false_negative": 0
+      },
+      "validation": {
+        "sample_count": 15,
+        "positive_count": 5,
+        "negative_count": 10,
+        "bce": 0.7623739659786224,
+        "threshold": 0.5,
+        "accuracy": 0.3333333333333333,
+        "precision": 0.3333333333333333,
+        "recall": 1.0,
+        "specificity": 0.0,
+        "balanced_accuracy": 0.5,
+        "f1": 0.5,
+        "true_positive": 5,
+        "true_negative": 0,
+        "false_positive": 10,
+        "false_negative": 0
+      },
+      "test": {
+        "sample_count": 15,
+        "positive_count": 10,
+        "negative_count": 5,
+        "bce": 0.5292426109313965,
+        "threshold": 0.5,
+        "accuracy": 0.6666666666666666,
+        "precision": 0.6666666666666666,
+        "recall": 1.0,
+        "specificity": 0.0,
+        "balanced_accuracy": 0.5,
+        "f1": 0.8,
+        "true_positive": 10,
+        "true_negative": 0,
+        "false_positive": 5,
+        "false_negative": 0
+      }
+    }
+  },
+  "hdr_supervised_samples": 1500,
+  "hdr_supervised_time_steps": 100,
+  "hdr_note": "HDR enable labels describe benefit if static. Ratio loss remains masked when no ratio labels are provided.",
+  "image_reports": {
+    "sdr_test_image_report": "outputs\\scene4_training_hdr_candidate\\test_inference_report.html",
+    "sdr_test_image_summary": "outputs\\scene4_training_hdr_candidate\\test_inference_report_summary.json",
+    "hdr_test_image_report": "outputs\\scene4_training_hdr_candidate\\test_hdr_inference_report.html",
+    "hdr_test_image_summary": "outputs\\scene4_training_hdr_candidate\\test_hdr_inference_report_summary.json"
+  }
+}
